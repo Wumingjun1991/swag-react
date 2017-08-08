@@ -2,8 +2,8 @@
  * Created by w4995 on 2017/8/8.
  */
 import React from 'react'
-import { List } from 'antd-mobile';
-
+import { List,Card,Icon,Button } from 'antd-mobile';
+import './index.less'
 import NavbarTop from '../../component/navbar_top/index'
 import {ajax} from '../../util/index'
 const Item = List.Item;
@@ -22,46 +22,57 @@ export default class Personal extends React.Component {
             }
         };
     }
-    /*componentWillMount(){
-        ajax('GET','localhost:8333/userinfo')
-    }*/
+    componentWillMount(){
+        ajax({method:'GET',
+            url:'http://localhost:8333/userinfo'
+        }).then((res)=>{
+            console.log(res);
+            this.setState(res)
+        })
+    }
     render() {
         return (<div>
-            <List>
+
                 <NavbarTop children={'个人中心'}/>
+
+            <List className="user">
+                <Card full>
+                    <Card.Header
+                        title={
+                            <div style={{width:'1.5rem',}}>
+                                <p style={{marginLeft:'0.5rem',width:'1.5rem',fontSize:'0.4rem'}}>{this.state.data.name}</p>
+                                {/*<p style={{marginLeft:'0.1rem',width:'1.5rem',fontSize:'0.23rem',color:'#ccc'}}>会员帐号:{this.state.data.username}</p>*/}
+                            </div>
+                        }
+                        thumb={this.state.data.avatar}
+                        thumbStyle={{width:'1.3rem',height:'1.3rem',borderRadius:'50%'}}
+                        extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}
+                    />
+                </Card>
             </List>
-            <List className="my-list">
-                <img src={this.state.data.avatar} alt=""/>
-                <Item extra={'内容内容'}>标题文字</Item>
-            </List>
-            <List renderHeader={() => '带副标题'} className="my-list">
-                <Item arrow="horizontal" multipleLine>
-                    标题文字 <Brief>副标题</Brief>
-                </Item>
-                <Item arrow="horizontal" thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png" multipleLine>
-                    标题文字 <Brief>副标题</Brief>
-                </Item>
-            </List>
-            <List renderHeader={() => '右侧自定义（无内容 / 文字 / 图片）'} className="my-list">
-                <Item>标题文字</Item>
-                <Item arrow="horizontal" onClick={() => {}}>标题文字</Item>
-                <Item extra="内容内容" arrow="horizontal" onClick={() => {}}>标题文字</Item>
-                <Item extra="10:30" align="top" thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png" multipleLine>
-                    标题文字 <Brief>副标题</Brief>
-                </Item>
-            </List>
-            <List renderHeader={() => '垂直居中对齐'} className="my-list">
-                <Item multipleLine extra="内容内容">
-                    标题文字 <Brief>副标题</Brief>
+            <List className="user-info">
+                <Item thumb={<Icon type={require('../../public/icon/user-info.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                    个人信息
                 </Item>
             </List>
-            <List renderHeader={() => '左侧带图标'}>
-                <Item
-                    thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
-                    arrow="horizontal"
-                    onClick={() => {}}
-                >我的钱包</Item>
-                <Item thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png" arrow="horizontal">我的花销占比</Item>
+            <List className="user-order">
+                <Item thumb={<Icon type={require('../../public/icon/user-order.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                    订单信息
+                </Item>
+
+            </List>
+            <List className="user-purse">
+                <Item thumb={<Icon type={require('../../public/icon/user-purse.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                    我的钱包
+                </Item>
+            </List>
+            <List className="user-help">
+                <Item thumb={<Icon type={require('../../public/icon/user-help.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                    帮助中心
+                </Item>
+            </List>
+            <List>
+                <Button className="btn" type="primary">退出登录</Button>
             </List>
         </div>);
     }
