@@ -63,12 +63,8 @@ export default class App extends Component {
                     </Card>
                 </WingBlank>
 
-
-
                 <List>
                     <CheckboxItem onChange={() => this.onChange()}>
-
-
 
                     </CheckboxItem>
                 </List>
