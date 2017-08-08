@@ -1,9 +1,72 @@
 let port = require('../port');
+let ip = require('../ipLocation');
+
+
 module.exports = {
     searchList:[
         {
             name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
+            rmb:1000,
+            hot:199,
+        },
+        {
+            name:'金属检测仪',
+            src:`http://${ip}:${port}/machine.jpg`,
             rmb:1000,
             hot:199,
         },
@@ -15,79 +78,19 @@ module.exports = {
         },
         {
             name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
+            src:`http://${ip}:${port}/machine.jpg`,
             rmb:1000,
             hot:199,
         },
         {
             name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
+            src:`http://${ip}:${port}/machine.jpg`,
             rmb:1000,
             hot:199,
         },
         {
             name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
-            rmb:1000,
-            hot:199,
-        },
-        {
-            name:'金属检测仪',
-            src:`http://localhost:${port}/machine.jpg`,
+            src:`http://${ip}:${port}/machine.jpg`,
             rmb:1000,
             hot:199,
         },

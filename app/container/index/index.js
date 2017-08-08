@@ -3,7 +3,7 @@ import {ajax} from '../../util/index';
 
 import { NavBar, SearchBar, Carousel, WhiteSpace, Grid, Icon} from 'antd-mobile';
 import NavbarTop from "../../component/navbar_top/index";
-import ip from '../../../mock/ipLocation';
+import ip from '../../util/ipLocation';
 
 export default class extends React.Component{
     constructor(){

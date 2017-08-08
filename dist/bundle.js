@@ -60,7 +60,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "088576755f6add3eb856"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7ab7a940db72bb325c77"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5823,8 +5823,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 // 开发地址   线上地址
-//export default ip = 'localhost';
-exports.default = ip = 'www.wangyukai.xin';
+var ip = 'www.wangyukai.xin';
+//let ip = 'localhost';
+exports.default = ip;
 
 /***/ }),
 /* 63 */

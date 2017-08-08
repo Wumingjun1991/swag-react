@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import {ajax} from '../../util/index';
-import ip from '../../../mock/ipLocation';
+import ip from '../../util/ipLocation';
 let port = require('../../../mock/port');
 import {Carousel,WhiteSpace,NavBar,Card,List,Radio,Stepper,Button,Flex} from 'antd-mobile';
 const RadioItem=Radio.RadioItem;
