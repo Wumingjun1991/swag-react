@@ -36,6 +36,9 @@ export default class extends Component{
     render(){
         return(
         <div className='message'>
+            <div className="test">
+                222
+            </div>
         {/*导航   */}
         <NavBar mode="light" className="navbar"
         >消息</NavBar>   
