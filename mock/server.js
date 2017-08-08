@@ -18,6 +18,8 @@ app.use(express.static(path.resolve("img")));
 // 允许跨域中间件
 app.use(function (req,res,next) {
     res.setHeader("Access-Control-Allow-Origin","*");
+    res.setHeader("Access-Control-Allow-Headers","content-type");
+    console.log(1);
     next();
 });
 
@@ -42,7 +44,7 @@ app.get("/search/:id",function (req, res) {
 // 消息请求
 app.post('/messages',function (req, res) {
     //判断登录状态
-
+    console.log(1);
     let data = null;
     if(req.body.loged.toString() === 'true'){
         data = {
