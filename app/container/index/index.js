@@ -42,12 +42,10 @@ export default class extends React.Component{
                     infinite
                     selectedIndex={1}
                     swipeSpeed={35}
-                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                    afterChange={index => console.log('slide to', index)}
                 >
                     {this.state.data.sliderImgs.map((item,index) => (
-                        <a key={index} >
-                            <img src={item} alt="icon"/>
+                        <a key={index}>
+                            <img style={{width:"100%"}} src={item} alt="icon"/>
                         </a>
                     ))}
                 </Carousel>
