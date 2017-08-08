@@ -33,7 +33,7 @@ export default class Footer extends React.Component {
                         });
                     }}
                 >
-                    <Link to="/index"/>
+                    <Link to="/"/>
                 </TabBar.Item>
                 <TabBar.Item
                     icon={<Icon type={require('../../public/icon/message.svg')} />}
@@ -61,7 +61,7 @@ export default class Footer extends React.Component {
                         });
                     }}
                 >
-                    <Link to="/buycar"/>
+                    <Link to="/buyCar"/>
                 </TabBar.Item>
                 <TabBar.Item
                     icon={<Icon type={require('../../public/icon/personal.svg')} />}
