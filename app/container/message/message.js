@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {ajax} from '../../util/index.js';
 import { NavBar, Icon } from 'antd-mobile';
 import { List } from 'antd-mobile';
+import { WhiteSpace } from 'antd-mobile';
 import './message.less';
 
 const Item = List.Item;
@@ -9,12 +10,20 @@ const Brief = Item.Brief;
 
 
 export default class extends Component{
-    state = {
-    disabled: false,
-  }
+   constructor(){
+       super();
+       this.state={
+           code:1,
+           data:{
+               messages:[{avatar:'',sender:'',content:'',time:''}],
+               notice:{name:'',msg:''}
+           }
+
+       }
+   }
 
 
-    componentWillMount(){
+    componentDidMount(){
         
         ajax({
             url:'http://localhost:8333/messages',
@@ -26,7 +35,8 @@ export default class extends Component{
             
         }).then((res)=>{
             
-            console.log(res)
+            console.log(res);
+            this.setState(res)
 
         }).catch((err)=>{
             console.log(err)
@@ -34,37 +44,145 @@ export default class extends Component{
     }
 
     render(){
+
+        let {messages,notice} = this.state.data;
+
         return(
         <div className='message'>
-            <div className="test">
-                222
-            </div>
         {/*导航   */}
         <NavBar mode="light" className="navbar"
         >消息</NavBar>   
 
 
-        <List renderHeader={() => 'Subtitle'} className="my-list">
-        <Item arrow="horizontal" multipleLine>
-          Title <Brief>subtitle</Brief>
-        </Item>
+        <List renderHeader={() => '订单消息'} className="my-list">
+
         <Item
-          arrow="horizontal"
-          multipleLine
-          onClick={() => {}}
-          platform="android"
-        >
-          ListItem （Android）<Brief>There may have water ripple effect of <br /> material if you set the click event.</Brief>
-        </Item>
-        <Item
-          arrow="horizontal"
-          thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
+
+          thumb={messages[0].avatar}
           multipleLine
           onClick={() => {}}
         >
-          Title <Brief>subtitle</Brief>
+            {notice.name} <Brief>{notice.msg}</Brief>
         </Item>
         </List>
+
+         {/*留白   */}
+        <WhiteSpace size="lg" />
+
+        <List renderHeader={() => '聊天消息'} className="my-list">
+            {
+                messages.map((item,index)=>(
+
+                    <Item key={index}
+
+                          thumb={item.avatar}
+                          multipleLine
+                          onClick={() => {}}
+                    >
+                        {item.sender} <Brief>{item.content}</Brief>
+                        <span>{item.time}</span>
+                    </Item>
+
+                ))
+
+            }
+        </List>
+            <List renderHeader={() => '聊天消息'} className="my-list">
+                {
+                    messages.map((item,index)=>(
+
+                        <Item key={index}
+
+                              thumb={item.avatar}
+                              multipleLine
+                              onClick={() => {}}
+                        >
+                            {item.sender} <Brief>{item.content}</Brief>
+                            <span>{item.time}</span>
+                        </Item>
+
+                    ))
+
+                }
+            </List>
+            <List renderHeader={() => '聊天消息'} className="my-list">
+                {
+                    messages.map((item,index)=>(
+
+                        <Item key={index}
+
+                              thumb={item.avatar}
+                              multipleLine
+                              onClick={() => {}}
+                        >
+                            {item.sender} <Brief>{item.content}</Brief>
+                            <span>{item.time}</span>
+                        </Item>
+
+                    ))
+
+                }
+            </List>
+            <List renderHeader={() => '聊天消息'} className="my-list">
+                {
+                    messages.map((item,index)=>(
+
+                        <Item key={index}
+
+                              thumb={item.avatar}
+                              multipleLine
+                              onClick={() => {}}
+                        >
+                            {item.sender} <Brief>{item.content}</Brief>
+                            <span>{item.time}</span>
+                        </Item>
+
+                    ))
+
+                }
+            </List>
+            <List renderHeader={() => '聊天消息'} className="my-list">
+                {
+                    messages.map((item,index)=>(
+
+                        <Item key={index}
+
+                              thumb={item.avatar}
+                              multipleLine
+                              onClick={() => {}}
+                        >
+                            {item.sender} <Brief>{item.content}</Brief>
+                            <span>{item.time}</span>
+                        </Item>
+
+                    ))
+
+                }
+            </List>
+            <List renderHeader={() => '聊天消息'} className="my-list">
+                {
+                    messages.map((item,index)=>(
+
+                        <Item key={index}
+
+                              thumb={item.avatar}
+                              multipleLine
+                              onClick={() => {}}
+                        >
+                            {item.sender} <Brief>{item.content}</Brief>
+                            <span>{item.time}</span>
+                        </Item>
+
+                    ))
+
+                }
+            </List>
+            
+
+
+
+
+
         </div>
             
         )
