@@ -1,7 +1,11 @@
 import React from "react";
 import {ajax} from '../../util/index';
+<<<<<<< HEAD
 import { NavBar, Icon } from 'antd-mobile';
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile';
+=======
+import GoodsDetail from "../GoodsDetail/GoodsDetail";
+>>>>>>> 655065acd9fcc0d95c0e69a9a6639d58be480e67
 
 export default class extends React.Component{
     constructor(){
@@ -30,6 +34,7 @@ export default class extends React.Component{
 
     render(){
         return (
+<<<<<<< HEAD
             <div>
               <NavBar mode="dark">
                 <input type="text"/>
@@ -50,6 +55,11 @@ export default class extends React.Component{
                     ))}
                 </Carousel>
 
+=======
+            <div>123123123
+                <img src={this.state.src} alt=""/>
+                <GoodsDetail/>
+>>>>>>> 655065acd9fcc0d95c0e69a9a6639d58be480e67
             </div>
         )
     }
