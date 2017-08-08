@@ -1,7 +1,7 @@
 import React from "react";
 import {ajax} from '../../util/index';
 
-import { NavBar, SearchBar, Carousel,WhiteSpace,Grid} from 'antd-mobile';
+import { NavBar, SearchBar, Carousel, WhiteSpace, Grid, Icon} from 'antd-mobile';
 import NavbarTop from "../../component/navbar_top/index";
 
 export default class extends React.Component{
@@ -12,8 +12,9 @@ export default class extends React.Component{
                 sliderImgs:[],
                 listImgs:[]
             },
-            list:[]
-
+            list:[],
+            // 是否展示搜索框
+            search:false,
         }
 
     }
@@ -47,17 +48,35 @@ export default class extends React.Component{
         return (
             <div>
                 <NavbarTop>
-                    <NavBar leftContent={null} mode="dark">
-                        <SearchBar style={{width:"80%"}} placeholder="搜索" />
-                    </NavBar>
+                    {!this.state.search?
+                        <NavBar leftContent='主页'
+                        iconName='home'
+                        mode="light">
+                        <div onClick={()=>this.setState({search:true})}>
+                        <Icon key="0" type="search" style={{ marginRight: '0.32rem' }} />
+                        </div>
+                        </NavBar>
+                      :<SearchBar
+                            onBlur={()=>{
+                                setTimeout(()=>{
+                                    this.setState({search:false})
+                                },30)
+                            }}
+                            focused="true"
+                            placeholder="搜索" />
+                    }
+
                 </NavbarTop>
                 {/*slider*/}
                 <Carousel
                     className="my-carousel"
                     autoplay={false}
                     infinite
+                    hasLine={true}
                     selectedIndex={1}
                     swipeSpeed={35}
+                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                    afterChange={index => console.log('slide to', index)}
                 >
                     {this.state.data.sliderImgs.map((item,index) => (
                         <a key={index}>
@@ -70,7 +89,7 @@ export default class extends React.Component{
                 <Grid data={this.state.data.listImgs}
                       columnNum={4}
                       renderItem={dataItem => (
-                          <div style={{ padding: '0.25rem' }}>
+                          <div style={{ padding: '0.25rem',border:'2px solid #ccc'  }}>
                               <img src={dataItem.src} style={{ width: '1rem', height: '1rem' }} alt="icon" />
                               <div style={{ color: '#888', fontSize: '0.28rem', marginTop: '0.14rem' }}>
                                   <span>{dataItem.name}</span>
@@ -85,7 +104,7 @@ export default class extends React.Component{
                       columnNum={2}
                       hasLine={true}
                       renderItem={dataItem => (
-                          <div style={{ padding: '0.25rem' }}>
+                          <div style={{ padding: '0.15rem', border:'2px solid #ccc' }}>
                               <img src={dataItem.src} style={{ width: '2.5rem', height: '2.5rem' }} alt="icon" />
                               <div style={{ color: '#000', fontSize: '0.3rem', }}>
                                   <span>{dataItem.name}</span>
