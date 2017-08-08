@@ -5,7 +5,7 @@ import { List } from 'antd-mobile';
 import { WhiteSpace } from 'antd-mobile';
 import NavbarTop from '../../component/navbar_top/index';
 import './message.less';
-
+import ip from '../../../mock/ipLocation';
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -27,7 +27,7 @@ export default class extends Component{
     componentDidMount(){
         
         ajax({
-            url:'http://localhost:8333/messages',
+            url:`http://${ip}:8333/messages`,
             method:'POST',
             data:{
                 'id':1,

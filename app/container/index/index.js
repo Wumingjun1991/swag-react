@@ -3,6 +3,7 @@ import {ajax} from '../../util/index';
 
 import { NavBar, SearchBar, Carousel, WhiteSpace, Grid, Icon} from 'antd-mobile';
 import NavbarTop from "../../component/navbar_top/index";
+import ip from '../../../mock/ipLocation';
 
 export default class extends React.Component{
     constructor(){
@@ -21,7 +22,7 @@ export default class extends React.Component{
     componentWillMount(){
         // 首页slider + bar
         ajax({
-          url:'http://localhost:8333/index',
+          url:`http://${ip}:8333/index`,
           method:'GET',
         }).then((data)=>{
           this.setState({
@@ -32,7 +33,7 @@ export default class extends React.Component{
         });
         // 商品列表
         ajax({
-            url:'http://localhost:8333/search/a',
+            url:`http://${ip}:8333/search/a`,
             method:'GET',
         }).then((data)=>{
             console.log(data);

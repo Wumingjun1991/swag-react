@@ -5,6 +5,7 @@ import React from 'react'
 import { List,Card,Icon,Button,NavBar } from 'antd-mobile';
 import './index.less'
 import NavbarTop from '../../component/navbar_top/index'
+import ip from '../../../mock/ipLocation';
 import {ajax} from '../../util/index'
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -23,8 +24,9 @@ export default class Personal extends React.Component {
         };
     }
     componentWillMount(){
-        ajax({method:'GET',
-            url:'http://localhost:8333/userinfo'
+        ajax({
+            method:'GET',
+            url:`http://${ip}:8333/userinfo`
         }).then((res)=>{
             console.log(res);
             this.setState(res)

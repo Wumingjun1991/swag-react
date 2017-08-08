@@ -5,6 +5,7 @@
 import React, {Component} from 'react';
 import { NavBar, Button, Card, WingBlank, Checkbox, Flex } from 'antd-mobile';
 import { ajax } from "../../util/index";
+import ip from '../../../mock/ipLocation';
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -18,7 +19,7 @@ export default class BuyCar extends Component {
     };
     componentWillMount () {
         ajax({
-            url: "http://localhost:8333/buycar",
+            url: `http://${ip}:8333/buycar`,
             method: "post",
             data: {
                 loged: true
