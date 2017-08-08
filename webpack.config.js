@@ -1,4 +1,5 @@
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 let path = require('path');
 
 const svgSpriteDirs = [
@@ -45,11 +46,24 @@ module.exports = {
             'main',
         ],
     },
+    devServer: {
+        hot: true,
+        port: 8080,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
+        proxy: {
+            "/api": {
+                target: "http://localhost:8333",
+                pathRewrite: {"^/api" : ""}
+            }
+        }
+    },
     devtool: 'source-map',
     plugins: [
         new HtmlWebpackPlugin({
             template: './app/page/index.html'
         }),
-
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
