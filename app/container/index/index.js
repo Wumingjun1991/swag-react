@@ -1,5 +1,6 @@
 import React from "react";
 import {ajax} from '../../util/index';
+import GoodsDetail from "../GoodsDetail/GoodsDetail";
 
 export default class extends React.Component{
     constructor(){
@@ -29,6 +30,7 @@ export default class extends React.Component{
         return (
             <div>123123123
                 <img src={this.state.src} alt=""/>
+                <GoodsDetail/>
             </div>
         )
     }
