@@ -3,6 +3,7 @@ import {ajax} from '../../util/index.js';
 import { NavBar, Icon } from 'antd-mobile';
 import { List } from 'antd-mobile';
 import { WhiteSpace } from 'antd-mobile';
+import NavbarTop from '../../component/navbar_top/index';
 import './message.less';
 
 const Item = List.Item;
@@ -50,8 +51,9 @@ export default class extends Component{
         return(
         <div className='message'>
         {/*导航   */}
-        <NavBar mode="light" className="navbar"
-        >消息</NavBar>   
+        <NavbarTop>
+            <NavBar leftContent={null} mode="light">消息</NavBar>
+        </NavbarTop>
 
 
         <List renderHeader={() => '订单消息'} className="my-list">
@@ -177,7 +179,7 @@ export default class extends Component{
 
                 }
             </List>
-            
+
 
 
 
