@@ -75,6 +75,8 @@ export default class extends React.Component{
                     hasLine={true}
                     selectedIndex={1}
                     swipeSpeed={35}
+                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                    afterChange={index => console.log('slide to', index)}
                 >
                     {this.state.data.sliderImgs.map((item,index) => (
                         <a key={index}>

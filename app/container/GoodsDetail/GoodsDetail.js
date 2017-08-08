@@ -11,12 +11,12 @@ export default class GoodsDetail extends Component {
         super();
         this.state = {
             goods: {
-            images:[],
-            name: '',
-            description: '',
-            standard: [],
-            avatar: ''
-        },
+                images:[],
+                name: '',
+                description: '',
+                standard: [],
+                avatar: ''
+            },
             value:0,
             val:0
         }
@@ -66,13 +66,13 @@ export default class GoodsDetail extends Component {
                     {images.map(ii => (
                         <a href="#" key={ii} style={{height:200}}>
                             <img width="100%"
-                                src={ii}
-                                onLoad={() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                    this.setState({
-                                        initialHeight: null,
-                                    });
-                                }}
+                                 src={ii}
+                                 onLoad={() => {
+                                     window.dispatchEvent(new Event('resize'));
+                                     this.setState({
+                                         initialHeight: null,
+                                     });
+                                 }}
                             />
                         </a>
                     ))}
