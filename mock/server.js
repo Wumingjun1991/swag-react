@@ -14,12 +14,11 @@ app.use(bodyParser.urlencoded({extended:true}));
 // parse application/json
 app.use(bodyParser.json());
 // 静态文件中间件 参数是静态文件的根路径
-app.use(express.static(path.resolve("img")));
+app.use(express.static(path.resolve(__dirname,"img/")));
 // 允许跨域中间件
 app.use(function (req,res,next) {
     res.setHeader("Access-Control-Allow-Origin","*");
     res.setHeader("Access-Control-Allow-Headers","content-type");
-    console.log(1);
     next();
 });
 
@@ -44,7 +43,6 @@ app.get("/search/:id",function (req, res) {
 // 消息请求
 app.post('/messages',function (req, res) {
     //判断登录状态
-    console.log(1);
     let data = null;
     if(req.body.loged.toString() === 'true'){
         data = {
