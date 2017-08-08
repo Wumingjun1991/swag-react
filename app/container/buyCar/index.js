@@ -3,14 +3,10 @@
  */
 
 import React, {Component} from 'react';
-// import { Link } from "react-router-dom";
 import { NavBar, Icon, Button, Card, WingBlank, List, Checkbox, Flex } from 'antd-mobile';
 import { ajax } from "../../util/index";
-import Footer from "../../component/footer/index";
 
-const CheckboxItem = Checkbox.CheckboxItem;
 const AgreeItem = Checkbox.AgreeItem;
-
 
 
 export default class App extends Component {
@@ -20,14 +16,11 @@ export default class App extends Component {
         this.state = {
             buyCarList: []
         }
-
     };
 
     onChange = () => {
         console.log("😄");
     };
-
-
     componentWillMount () {
         ajax({
             url: "http://localhost:8333/buycar",
@@ -49,11 +42,6 @@ export default class App extends Component {
 
 
     render () {
-
-        const data = [
-            { value: 0, label: '' }
-        ];
-        console.log(this.state.buyCarList);
 
         return (
             <div className="csl_buyCar">
