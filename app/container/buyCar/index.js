@@ -75,7 +75,6 @@ export default class App extends Component {
     }
 }
 
-import "../../style/buyCar.css";
 
 
 
