@@ -22,6 +22,12 @@ export default class App extends Component {
         console.log("😄");
     };
 
+
+    componentWillMount () {
+
+    }
+
+
     render () {
 
         const data = [
