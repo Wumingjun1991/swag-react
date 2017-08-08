@@ -67,7 +67,7 @@ export default class extends Component{
           onClick={() => {}}
         >
             {notice.name}
-            
+
             <Brief>{notice.msg}</Brief>
         </Item>
         </List>
