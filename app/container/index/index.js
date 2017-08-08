@@ -49,12 +49,13 @@ export default class extends React.Component{
             <div>
                 <NavbarTop>
                     {!this.state.search?
-                        <NavBar leftContent='主页'
-                        iconName='home'
-                        mode="light">
-                        <div onClick={()=>this.setState({search:true})}>
-                        <Icon key="0" type="search" style={{ marginRight: '0.32rem' }} />
-                        </div>
+                        <NavBar
+                        iconName={require('../../public/icon/index.svg')}
+                        mode="light"
+                        rightContent={<Icon
+                            onClick={()=>{this.setState({search:true})}}
+                            type="search"/>}>
+                        SWAG
                         </NavBar>
                       :<SearchBar
                             onBlur={()=>{
@@ -69,8 +70,7 @@ export default class extends React.Component{
                 </NavbarTop>
                 {/*slider*/}
                 <Carousel
-                    className="my-carousel"
-                    autoplay={false}
+                    autoplay={true}
                     infinite
                     hasLine={true}
                     selectedIndex={1}
@@ -80,7 +80,7 @@ export default class extends React.Component{
                 >
                     {this.state.data.sliderImgs.map((item,index) => (
                         <a key={index}>
-                            <img style={{width:"100%",height:"400px"}} src={item} alt="icon"/>
+                            <img style={{width:"100%",height:"4rem"}} src={item} alt="icon"/>
                         </a>
                     ))}
                 </Carousel>
@@ -90,7 +90,7 @@ export default class extends React.Component{
                       columnNum={4}
                       renderItem={dataItem => (
                           <div style={{ padding: '0.25rem',border:'2px solid #ccc'  }}>
-                              <img src={dataItem.src} style={{ width: '1rem', height: '1rem' }} alt="icon" />
+                              <img src={dataItem.src} style={{ width: '0.8rem', height: '0.8rem' }} alt="icon" />
                               <div style={{ color: '#888', fontSize: '0.28rem', marginTop: '0.14rem' }}>
                                   <span>{dataItem.name}</span>
 

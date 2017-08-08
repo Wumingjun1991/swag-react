@@ -5,6 +5,7 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import './index.less'
 import { TabBar, Icon } from 'antd-mobile';
+import TabbarToLink from '../../component/tabbar_to_link';
 export default class Footer extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +14,9 @@ export default class Footer extends React.Component {
             hidden: false,
         };
     }
+    static contextTypes = {
+        router: React.PropTypes.object
+    };
     render() {
         return (
             <TabBar
@@ -21,10 +25,10 @@ export default class Footer extends React.Component {
                 barTintColor="white"
                 hidden={this.state.hidden}
             >
-
                 <TabBar.Item
+                    {...this.props}
                     title="主页"
-                    key="主页"
+                    key="index"
                     icon={<Icon type={require('../../public/icon/index.svg')} />}
                     selectedIcon={<Icon type={require('../../public/icon/index.svg')} />}
                     selected={this.state.selectedTab === 'index'}
@@ -32,21 +36,22 @@ export default class Footer extends React.Component {
                         this.setState({
                             selectedTab: 'index',
                         });
+                        this.context.router.history.push('/');
                     }}
                 >
-                    <Link to="/"/>
-                </TabBar.Item>
 
+                </TabBar.Item>
                 <TabBar.Item
                     icon={<Icon type={require('../../public/icon/message.svg')} />}
                     selectedIcon={<Icon type={require('../../public/icon/message.svg')} />}
                     title="消息"
-                    key="消息"
+                    key="message"
                     selected={this.state.selectedTab === 'message'}
                     onPress={() => {
                         this.setState({
                             selectedTab: 'message',
                         });
+                        this.context.router.history.push('/message');
                     }}
                 >
                 </TabBar.Item>
@@ -54,12 +59,13 @@ export default class Footer extends React.Component {
                     icon={<Icon type={require('../../public/icon/buyCar.svg')} />}
                     selectedIcon={<Icon type={require('../../public/icon/buyCar.svg')} />}
                     title="购物车"
-                    key="购物车"
+                    key="buyCar"
                     selected={this.state.selectedTab === 'buyCar'}
                     onPress={() => {
                         this.setState({
                             selectedTab: 'buyCar',
                         });
+                        this.context.router.history.push('/buyCar');
                     }}
                 >
 
@@ -70,13 +76,15 @@ export default class Footer extends React.Component {
                     icon={<Icon type={require('../../public/icon/personal.svg')} />}
                     selectedIcon={<Icon type={require('../../public/icon/personal.svg')} />}
                     title="个人中心"
-                    key="个人中心"
+                    key="userInfo"
                     selected={this.state.selectedTab === 'personal'}
                     onPress={() => {
                         this.setState({
                             selectedTab: 'personal',
                         });
+                        this.context.router.history.push('/personal');
                     }}
+
                 >
                 </TabBar.Item>
             </TabBar>
