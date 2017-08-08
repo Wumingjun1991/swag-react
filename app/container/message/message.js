@@ -52,138 +52,50 @@ export default class extends Component{
         <div className='message'>
         {/*导航   */}
         <NavbarTop>
-            <NavBar leftContent={null} mode="light">消息</NavBar>
+            <NavBar leftContent={null}
+                    iconName={null}
+                    mode="light">消息</NavBar>
         </NavbarTop>
 
 
-        <List renderHeader={() => '订单消息'} className="my-list">
+        <List renderHeader={() => '订单消息'} className="order-list">
 
         <Item
-
+          className="order-item"
           thumb={messages[0].avatar}
           multipleLine
           onClick={() => {}}
         >
-            {notice.name} <Brief>{notice.msg}</Brief>
+            {notice.name}
+            
+            <Brief>{notice.msg}</Brief>
         </Item>
         </List>
 
          {/*留白   */}
         <WhiteSpace size="lg" />
 
-        <List renderHeader={() => '聊天消息'} className="my-list">
+        <List renderHeader={() => '聊天消息'} className="chat-list">
             {
                 messages.map((item,index)=>(
 
                     <Item key={index}
-
+                          className="chat-item"
                           thumb={item.avatar}
                           multipleLine
                           onClick={() => {}}
                     >
-                        {item.sender} <Brief>{item.content}</Brief>
+
+                        {item.sender}
                         <span>{item.time}</span>
+                        <Brief>{item.content}</Brief>
+
                     </Item>
 
                 ))
 
             }
         </List>
-            <List renderHeader={() => '聊天消息'} className="my-list">
-                {
-                    messages.map((item,index)=>(
-
-                        <Item key={index}
-
-                              thumb={item.avatar}
-                              multipleLine
-                              onClick={() => {}}
-                        >
-                            {item.sender} <Brief>{item.content}</Brief>
-                            <span>{item.time}</span>
-                        </Item>
-
-                    ))
-
-                }
-            </List>
-            <List renderHeader={() => '聊天消息'} className="my-list">
-                {
-                    messages.map((item,index)=>(
-
-                        <Item key={index}
-
-                              thumb={item.avatar}
-                              multipleLine
-                              onClick={() => {}}
-                        >
-                            {item.sender} <Brief>{item.content}</Brief>
-                            <span>{item.time}</span>
-                        </Item>
-
-                    ))
-
-                }
-            </List>
-            <List renderHeader={() => '聊天消息'} className="my-list">
-                {
-                    messages.map((item,index)=>(
-
-                        <Item key={index}
-
-                              thumb={item.avatar}
-                              multipleLine
-                              onClick={() => {}}
-                        >
-                            {item.sender} <Brief>{item.content}</Brief>
-                            <span>{item.time}</span>
-                        </Item>
-
-                    ))
-
-                }
-            </List>
-            <List renderHeader={() => '聊天消息'} className="my-list">
-                {
-                    messages.map((item,index)=>(
-
-                        <Item key={index}
-
-                              thumb={item.avatar}
-                              multipleLine
-                              onClick={() => {}}
-                        >
-                            {item.sender} <Brief>{item.content}</Brief>
-                            <span>{item.time}</span>
-                        </Item>
-
-                    ))
-
-                }
-            </List>
-            <List renderHeader={() => '聊天消息'} className="my-list">
-                {
-                    messages.map((item,index)=>(
-
-                        <Item key={index}
-
-                              thumb={item.avatar}
-                              multipleLine
-                              onClick={() => {}}
-                        >
-                            {item.sender} <Brief>{item.content}</Brief>
-                            <span>{item.time}</span>
-                        </Item>
-
-                    ))
-
-                }
-            </List>
-
-
-
-
-
 
         </div>
             
