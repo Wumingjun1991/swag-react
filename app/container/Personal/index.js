@@ -2,7 +2,7 @@
  * Created by w4995 on 2017/8/8.
  */
 import React from 'react'
-import { List,Card,Icon,Button } from 'antd-mobile';
+import { List,Card,Icon,Button,NavBar } from 'antd-mobile';
 import './index.less'
 import NavbarTop from '../../component/navbar_top/index'
 import {ajax} from '../../util/index'
@@ -33,7 +33,11 @@ export default class Personal extends React.Component {
     render() {
         return (<div>
 
-                <NavbarTop children={'个人中心'}/>
+            <NavbarTop>
+                <NavBar leftContent={null}
+                        iconName={null}
+                        mode="light">个人中心</NavBar>
+            </NavbarTop>
 
             <List className="user">
                 <Card full>
