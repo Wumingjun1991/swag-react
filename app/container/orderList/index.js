@@ -73,15 +73,21 @@ class OrderList extends React.Component{
             flag: false
         }
     }
+    static contextTypes = {
+        router: React.PropTypes.object
+    }
     componentDidMount(){
-
+        console.log(this.context.router.history);
     }
     render(){
         return(
             <div>
                 <NavbarTop>
                     <NavBar
-                        onLeftClick = {this.props.turnBack}
+                        onLeftClick = {
+                            this.context.router.history.goBack
+                            /*this.props.turnBack*/
+                        }
                         mode="light"
                     >订单列表</NavBar>
                 </NavbarTop>
@@ -102,9 +108,7 @@ class OrderList extends React.Component{
                         ))
                     }
                 </List>
-                <WhiteSpace size="lg"/>
-                <WhiteSpace size="lg"/>
-                <WhiteSpace size="lg"/>
+                <div style={{height:'1rem',background:'#f5f5f9'}}></div>
 
 
             </div>
