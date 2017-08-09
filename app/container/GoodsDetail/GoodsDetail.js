@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import {ajax} from '../../util/index';
+import ip from '../../util/ipLocation';
 let port = require('../../../mock/port');
 import {Carousel,WhiteSpace,NavBar,Card,List,Radio,Stepper,Button,Flex} from 'antd-mobile';
 const RadioItem=Radio.RadioItem;
@@ -24,7 +25,7 @@ export default class GoodsDetail extends Component {
 
     componentWillMount() {
         ajax({
-            url: `http://localhost:${port}/detail/123`,
+            url: `http://${ip}:${port}/detail/123`,
             method: 'GET'
         }).then((res) => {
             console.log(res.data);

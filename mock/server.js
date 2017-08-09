@@ -15,11 +15,16 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 // 静态文件中间件 参数是静态文件的根路径
 app.use(express.static(path.resolve(__dirname,"img/")));
+app.use(express.static(path.resolve(__dirname,"../dist/")));
 // 允许跨域中间件
 app.use(function (req,res,next) {
     res.setHeader("Access-Control-Allow-Origin","*");
     res.setHeader("Access-Control-Allow-Headers","content-type");
     next();
+});
+
+app.get("/",function (req, res) {
+    res.sendFile('../dist/index.html');
 });
 
 // 首页  slider + bar请求
@@ -96,7 +101,7 @@ app.get('/userinfo',function (req, res){
     let data = {
         code:1,
         data:{
-            avatar:`http://localhost:${port}/pdd.jpg`,
+            avatar:`http://www.wangyukai.xin:${port}/pdd.jpg`,
             name:'我最帅',
             username:'amhandsome',
         }

@@ -2,10 +2,13 @@
  * Created by w4995 on 2017/8/8.
  */
 import React from 'react'
-import { List,Card,Icon,Button } from 'antd-mobile';
+import { List,Card,Icon,Button,NavBar } from 'antd-mobile';
 import './index.less'
 import NavbarTop from '../../component/navbar_top/index'
+import ip from '../../util/ipLocation';
 import {ajax} from '../../util/index'
+
+
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -19,21 +22,29 @@ export default class Personal extends React.Component {
                 avatar:'',
                 name:'',
                 username:'',
-            }
+            },
+            flag:false,
         };
     }
     componentWillMount(){
-        ajax({method:'GET',
-            url:'http://localhost:8333/userinfo'
+        ajax({
+            method:'GET',
+            url:`http://${ip}:8333/userinfo`
         }).then((res)=>{
             console.log(res);
             this.setState(res)
-        })
+        });
+
     }
     render() {
         return (<div>
 
-                <NavbarTop children={'个人中心'}/>
+
+            <NavbarTop>
+                <NavBar leftContent={null}
+                        iconName={null}
+                        mode="light">个人中心</NavBar>
+            </NavbarTop>
 
             <List className="user">
                 <Card full>
@@ -74,6 +85,7 @@ export default class Personal extends React.Component {
             <List>
                 <Button className="btn" type="primary">退出登录</Button>
             </List>
-        </div>);
+        </div>
+        );
     }
 }

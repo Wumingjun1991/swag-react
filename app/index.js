@@ -15,22 +15,33 @@ import Message from './container/message/message'; // gp
 
 import Footer from './component/footer/index'
 import Personal from './container/Personal/index'//wmj
+import OrderList from './container/orderList'// wyk
+
+// redux
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './redux/reducers';
+let store = createStore(reducers);
 
 ReactDOM.render(
-    <Router>
-        <div>
-            <Switch>
-                <Route exact path="/" component={Index}/>
-                <Route path="/buyCar" component={BuyCar}/>
-                <Route path="/detail/123" component={GoodsDetail}/>
-                <Route path='/message' component={Message}/>
-                <Route path='/personal' component={Personal}/>
-                <Route path='/signin' component={Signin}/>
-                <Route path='/signup' component={Signup}/>
-            </Switch>
-            <Footer/>
-        </div>
-    </Router>
+    <Provider store={store}>
+        <Router>
+            <div>
+                <Switch>
+                    <Route exact path="/" component={Index}/>
+                    <Route path="/buyCar" component={BuyCar}/>
+                    <Route path="/detail/123" component={GoodsDetail}/>
+                    <Route path='/message' component={Message}/>
+                    <Route path='/personal' component={Personal}/>
+                    <Route path='/signin' component={Signin}/>
+                    <Route path='/signup' component={Signup}/>
+                    {/*订单信息*/}
+                    <Route path='/orderList' component={OrderList}/>
+                </Switch>
+                <Footer/>
+            </div>
+        </Router>
+    </Provider>
     ,
     document.querySelector("#app")
 );
