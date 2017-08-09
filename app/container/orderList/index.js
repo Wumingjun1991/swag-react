@@ -65,19 +65,23 @@ let mockList = [
 ];
 
 
+
 class OrderList extends React.Component{
+    constructor(){
+        super();
+        this.state = {
+            flag: false
+        }
+    }
     componentDidMount(){
-        console.log(this.props.a);
-        this.props.saveDate("hahaha");
-        setTimeout(()=>{
-            console.log(this.props.a);
-        },2000)
+
     }
     render(){
         return(
             <div>
                 <NavbarTop>
                     <NavBar
+                        onLeftClick = {this.props.turnBack}
                         mode="light"
                     >订单列表</NavBar>
                 </NavbarTop>
@@ -101,6 +105,8 @@ class OrderList extends React.Component{
                 <WhiteSpace size="lg"/>
                 <WhiteSpace size="lg"/>
                 <WhiteSpace size="lg"/>
+
+
             </div>
 
         )
