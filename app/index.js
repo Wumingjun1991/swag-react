@@ -8,9 +8,8 @@ import GoodsDetail from "./container/GoodsDetail/GoodsDetail";
 import Index from './container/index/index'; // wyk
 import BuyCar from './container/buyCar/index'; // csl - 购物车
 
-import JpComponent from './component/jumpcomponent/index';//gp 跳转组件
-import Message from './container/message/message'; // gp
 
+import Message from './container/message/message'; // gp
 
 
 import Footer from './component/footer/index'
@@ -28,7 +27,6 @@ ReactDOM.render(
             </Switch>
             <Footer/>
         </div>
-        <JpComponent></JpComponent>
     </Router>
     ,
     document.querySelector("#app")
