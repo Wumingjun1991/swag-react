@@ -142,7 +142,7 @@ export default class BuyCar extends Component {
                             </AgreeItem>
                             <span className="total">
                                 合计：
-                                <em>{this.state.totalPrice}</em>
+                                <em>￥{this.state.totalPrice}</em>
                             </span>
                             {/*<span className="tips">不含运费和进口税</span>*/}
                             <Button className="btn am-button-small" type="ghost">立即付款</Button>
