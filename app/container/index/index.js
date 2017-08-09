@@ -16,27 +16,71 @@ export default class extends React.Component{
             list:[],
             // 是否展示搜索框
             search:false,
+            scrolling:false,
+            hasMore:true,
+            getting: false
         }
 
     }
-    componentWillMount(){
-        // 首页slider + bar
-        ajax({
-          url:`http://${ip}:8333/index`,
-          method:'GET',
-        }).then((data)=>{
-          this.setState({
-              data:data.data
-          })
-        }).catch((err)=>{
-          console.log(err);
-        });
-        // 商品列表
+    listenLoading=()=>{
         ajax({
             url:`http://${ip}:8333/search/a`,
             method:'GET',
         }).then((data)=>{
-            console.log(data);
+            this.setState({
+                list:[...this.state.list,...data.data]
+            })
+            if(this.state.list.length<50){
+                setTimeout(()=>{
+                    this.setState({scrolling:false,hasMore:false})
+                },20)
+            }
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+    listenScroll=()=>{
+        let scrollHeight=document.body.scrollHeight;
+        let scrollTop=document.body.scrollTop;
+        if(scrollTop>=scrollHeight-1500&&!this.state.scrolling){
+            this.setState({scrolling:true})
+            this.listenLoading()
+        }
+    }
+    tStart=(e)=>{
+        this.touchY=e.touches[0].clientY;
+    }
+    tMove=(e)=>{
+        this.setState({getting:true})
+        let curTouchY=e.touches[0].clientY;
+        if((curTouchY-this.touchY)<0){
+            return
+        }
+        document.body.style.marginTop=(curTouchY-this.touchY)*0.3+'px';
+    }
+    tEnd=()=>{
+        this.setState({getting:false})
+        document.body.style.marginTop='0px';
+        this.getIndex();
+        this.getSeach();
+    }
+    getIndex=()=>{
+        ajax({
+            url:`http://${ip}:8333/index`,
+            method:'GET',
+        }).then((data)=>{
+            this.setState({
+                data:data.data
+            })
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+    getSeach=()=>{
+        ajax({
+            url:`http://${ip}:8333/search/a`,
+            method:'GET',
+        }).then((data)=>{
             this.setState({
                 list:data.data
             })
@@ -44,10 +88,24 @@ export default class extends React.Component{
             console.log(err);
         })
     }
-
+    componentWillUnmount() {
+        window.removeEventListener('scroll',this.listenScroll);
+    }
+    componentWillMount(){
+        // 首页slider + bar
+        let bd=document.body;
+        this.getIndex();
+        // 商品列表
+        this.getSeach();
+        window.addEventListener('scroll',this.listenScroll)
+        bd.addEventListener('touchstart',this.tStart);
+        bd.addEventListener('touchmove',this.tMove);
+        bd.addEventListener('touchend',this.tEnd);
+    }
     render(){
         return (
             <div>
+                {this.state.getting?<div className="getting">松手刷新</div>:null}
                 <NavbarTop>
                     {!this.state.search?
                         <NavBar
@@ -76,8 +134,6 @@ export default class extends React.Component{
                     hasLine={true}
                     selectedIndex={1}
                     swipeSpeed={35}
-                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                    afterChange={index => console.log('slide to', index)}
                 >
                     {this.state.data.sliderImgs.map((item,index) => (
                         <a key={index}>
@@ -116,7 +172,9 @@ export default class extends React.Component{
                           </div>
                       )}
                 />
+                {!this.state.hasMore?<div style={{width:'100%',height:'1rem',lineHeight:'1rem',textAlign:'center',paddingBottom:'1rem'}}>没有更多</div>:null}
             </div>
         )
     }
 }
+import './index.less'
