@@ -82,7 +82,12 @@ export default class Footer extends React.Component {
                         this.setState({
                             selectedTab: 'personal',
                         });
-                        this.context.router.history.push('/personal');
+                        if(localStorage.getItem('LOGINSTATE') === 'true'){
+                            this.context.router.history.push('/personal');
+                        }else{
+                            this.context.router.history.push('/signin');
+                        }
+
                     }}
 
                 >
