@@ -101,7 +101,7 @@ app.get('/userinfo',function (req, res){
     let data = {
         code:1,
         data:{
-            avatar:`http://localhost:${port}/pdd.jpg`,
+            avatar:`http://www.wangyukai.xin:${port}/pdd.jpg`,
             name:'我最帅',
             username:'amhandsome',
         }

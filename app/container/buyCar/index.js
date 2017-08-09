@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import { NavBar, Button, Card, WingBlank, Checkbox, Flex } from 'antd-mobile';
 import { ajax } from "../../util/index";
-import ip from '../../../mock/ipLocation';
+import ip from '../../util/ipLocation';
 
 const AgreeItem = Checkbox.AgreeItem;
 
