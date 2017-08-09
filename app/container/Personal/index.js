@@ -8,7 +8,6 @@ import NavbarTop from '../../component/navbar_top/index'
 import ip from '../../util/ipLocation';
 import {ajax} from '../../util/index'
 
-import JumpComponent from '../../component/jumpcomponent/index';//gp jump test
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -27,10 +26,6 @@ export default class Personal extends React.Component {
             flag:false,
         };
     }
-    handleClick= () =>{
-        console.log(1);
-        this.setState({flag:true})
-    }
     componentWillMount(){
         ajax({
             method:'GET',
@@ -44,7 +39,6 @@ export default class Personal extends React.Component {
     render() {
         return (<div>
 
-                <JumpComponent flag={this.state.flag}></JumpComponent>
 
             <NavbarTop>
                 <NavBar leftContent={null}
@@ -67,7 +61,7 @@ export default class Personal extends React.Component {
                     />
                 </Card>
             </List>
-            <List onClick={this.handleClick} className="user-info">
+            <List className="user-info">
                 <Item thumb={<Icon type={require('../../public/icon/user-info.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
                     个人信息
                 </Item>
