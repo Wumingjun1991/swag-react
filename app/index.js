@@ -7,7 +7,8 @@ import {HashRouter as Router,Route,Switch} from "react-router-dom";
 import GoodsDetail from "./container/GoodsDetail/GoodsDetail";
 import Index from './container/index/index'; // wyk
 import BuyCar from './container/buyCar/index'; // csl - 购物车
-
+import Signin from "./container/signin/signin";  // csl - 登陆
+import Signup from "./container/signin/signup";  // csl - 注册
 
 import Message from './container/message/message'; // gp
 
@@ -24,6 +25,8 @@ ReactDOM.render(
                 <Route path="/detail/123" component={GoodsDetail}/>
                 <Route path='/message' component={Message}/>
                 <Route path='/personal' component={Personal}/>
+                <Route path='/signin' component={Signin}/>
+                <Route path='/signup' component={Signup}/>
             </Switch>
             <Footer/>
         </div>

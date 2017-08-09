@@ -40,7 +40,8 @@ export default class BuyCar extends Component {
                 {/* nav */}
                 <NavBar
                     mode="light"
-                    iconName={require("../../public/icon/buyCar.svg")}
+                    // iconName={require("../../public/icon/buyCar.svg")}
+                    iconName = "search"
                 >购物车</NavBar>
 
                 {/* list */}
