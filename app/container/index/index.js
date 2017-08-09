@@ -89,7 +89,11 @@ export default class extends React.Component{
         })
     }
     componentWillUnmount() {
+        let bd=document.body;
         window.removeEventListener('scroll',this.listenScroll);
+        bd.removeEventListener('touchstart',this.tStart);
+        bd.removeEventListener('touchmove',this.tMove);
+        bd.removeEventListener('touchend',this.tEnd);
     }
     componentWillMount(){
         // 首页slider + bar
