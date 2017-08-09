@@ -60,56 +60,59 @@ export default class extends Component{
         let {messages,notice} = this.state.data;
         let Jump = jumpWaitFlag(this.state.jumpFlag);
         return(
-        <div className='message'>
-            {this.state.jumpFlag.toString()}
+        <div>
             <Jump/>
-        {/*导航   */}
-        <NavbarTop>
-            <NavBar leftContent={null}
-                    iconName={null}
-                    mode="light">消息</NavBar>
-        </NavbarTop>
+            <div className='message'>
+                {this.state.jumpFlag.toString()}
+
+                {/*导航   */}
+                <NavbarTop>
+                    <NavBar leftContent={null}
+                            iconName={null}
+                            mode="light">消息</NavBar>
+                </NavbarTop>
 
 
-        <List renderHeader={() => '订单消息'} className="order-list">
+                <List renderHeader={() => '订单消息'} className="order-list">
 
-        <Item
-          className="order-item"
-          thumb={messages[0].avatar}
-          multipleLine
-          onClick={this.jumpOut}
-        >
-            {notice.name}
-
-            <Brief>{notice.msg}</Brief>
-        </Item>
-        </List>
-
-         {/*留白   */}
-        <WhiteSpace size="lg" />
-
-        <List renderHeader={() => '聊天消息'} className="chat-list">
-            {
-                messages.map((item,index)=>(
-
-                    <Item key={index}
-                          className="chat-item"
-                          thumb={item.avatar}
-                          multipleLine
-                          onClick={() => {}}
+                    <Item
+                        className="order-item"
+                        thumb={messages[0].avatar}
+                        multipleLine
+                        onClick={this.jumpOut}
                     >
+                        {notice.name}
 
-                        {item.sender}
-                        <span>{item.time}</span>
-                        <Brief>{item.content}</Brief>
-
+                        <Brief>{notice.msg}</Brief>
                     </Item>
+                </List>
 
-                ))
+                {/*留白   */}
+                <WhiteSpace size="lg" />
 
-            }
-        </List>
+                <List renderHeader={() => '聊天消息'} className="chat-list">
+                    {
+                        messages.map((item,index)=>(
 
+                            <Item key={index}
+                                  className="chat-item"
+                                  thumb={item.avatar}
+                                  multipleLine
+                                  onClick={() => {}}
+                            >
+
+                                {item.sender}
+                                <span>{item.time}</span>
+                                <Brief>{item.content}</Brief>
+
+                            </Item>
+
+                        ))
+
+                    }
+                </List>
+
+            </div>
         </div>
             
         )

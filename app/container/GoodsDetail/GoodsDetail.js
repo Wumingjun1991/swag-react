@@ -53,8 +53,10 @@ export default class GoodsDetail extends Component {
         let {value} = this.state;
         let {images,avatar,name,description,standard} = this.state.goods;
         return (
-            <div>
-                <NavBar mode="dark" className="head">
+            <div className="container">
+                <NavBar
+                    onLeftClick = {this.props.turnBack}
+                    mode="dark" className="head">
                     商品详情
                 </NavBar>
                 <Carousel

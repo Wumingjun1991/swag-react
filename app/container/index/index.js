@@ -4,6 +4,10 @@ import {ajax} from '../../util/index';
 import { NavBar, SearchBar, Carousel, WhiteSpace, Grid, Icon} from 'antd-mobile';
 import NavbarTop from "../../component/navbar_top/index";
 import ip from '../../util/ipLocation';
+import GoodsDetail from '../GoodsDetail/GoodsDetail';
+import jumpcomponent from '../../component/jumpcomponent';
+
+let jumpWaitFlag = jumpcomponent(GoodsDetail);
 
 export default class extends React.Component{
     constructor(){
@@ -18,7 +22,9 @@ export default class extends React.Component{
             search:false,
             scrolling:false,
             hasMore:true,
-            getting: false
+            getting: false,
+            // 弹出
+            jumpFlag: false,
         }
 
     }
@@ -81,7 +87,7 @@ export default class extends React.Component{
         }).catch((err)=>{
             console.log(err);
         });
-    }
+    };
     getSeach=()=>{
         ajax({
             url:`http://${ip}:8333/search/a`,
@@ -112,9 +118,16 @@ export default class extends React.Component{
         bd.addEventListener('touchmove',this.tMove);
         bd.addEventListener('touchend',this.tEnd);
     }
+    moveOut = ()=>{
+        /*this.setState({
+            jumpFlag: true
+        })*/
+    };
     render(){
+        let Jump = jumpWaitFlag(this.state.jumpFlag);
         return (
             <div>
+                {/*<Jump/>*/}
                 {this.state.getting?<div className="getting">松手刷新</div>:null}
                 <NavbarTop>
                     {!this.state.search?
@@ -153,7 +166,9 @@ export default class extends React.Component{
                 </Carousel>
                 <WhiteSpace size="lg" />
                 {/*bar*/}
-                <Grid data={this.state.data.listImgs}
+                <Grid
+                    onClick={this.moveOut}
+                    data={this.state.data.listImgs}
                       columnNum={4}
                       renderItem={dataItem => (
                           <div style={{ padding: '0.25rem',border:'2px solid #ccc'  }}>
@@ -167,7 +182,9 @@ export default class extends React.Component{
                       )}
                 />
                 <WhiteSpace size="lg" />
-                <Grid data={this.state.list}
+                <Grid
+                    onClick={this.moveOut}
+                    data={this.state.list}
                       columnNum={2}
                       hasLine={true}
                       renderItem={dataItem => (
