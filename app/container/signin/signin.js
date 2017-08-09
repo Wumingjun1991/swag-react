@@ -49,14 +49,18 @@ export default class Signin extends Component {
             this.showToastNoMask("请输入用户密码～");
             return;
         }
+        let flag = false;
         users.forEach( item => {
             if (item.username === username && item.password === password) {
                 localStorage.setItem("LOGINSTATE", "true");
+                flag = true;
                 this.context.router.history.push("/");
                 return;
             }
-            this.showToastNoMask("sorry, 亲 该用户名不存在哦。");
         });
+        if (!flag) {
+            this.showToastNoMask("sorry, 亲 该用户名不存在哦。");
+        }
     };
 
     handleSignup = () => {
