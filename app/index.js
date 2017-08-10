@@ -24,7 +24,7 @@ import reducers from './redux/reducers';
 let store = createStore(reducers);
 
 // jump
-// import jump from './component/jumpcomponent';
+import jump from './component/jumpcomponent';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -39,7 +39,7 @@ ReactDOM.render(
                     <Route path='/signin' component={Signin}/>
                     <Route path='/signup' component={Signup}/>
                     {/*订单信息*/}
-                    {/*<Route path='/orderList' component={jump(OrderList)}/>*/}
+                    <Route path='/orderList' component={jump(OrderList)()}/>
                 </Switch>
                 <Footer/>
             </div>

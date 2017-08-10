@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 
 
-export default (OldComponent, data) =>data =>  {
+export default (OldComponent, data) =>() =>  {
     // flag: true 左移 false 右
     return class extends React.Component{
         constructor(){
