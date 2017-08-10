@@ -17,6 +17,13 @@ export default class Footer extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object
     };
+    componentDidMount(){
+        this.context.router.history.listen((data)=>{
+            this.setState({
+                selectedTab: data.pathname,
+            })
+        })
+    }
     render() {
         return (
             <TabBar
@@ -31,11 +38,8 @@ export default class Footer extends React.Component {
                     key="index"
                     icon={<Icon type={require('../../public/icon/index.svg')} />}
                     selectedIcon={<Icon type={require('../../public/icon/index.svg')} />}
-                    selected={this.state.selectedTab === 'index'}
+                    selected={this.state.selectedTab === '/'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'index',
-                        });
                         this.context.router.history.push('/');
                     }}
                 >
@@ -46,19 +50,13 @@ export default class Footer extends React.Component {
                     selectedIcon={<Icon type={require('../../public/icon/message.svg')} />}
                     title="消息"
                     key="message"
-                    selected={this.state.selectedTab === 'message'}
+                    selected={this.state.selectedTab === '/message'}
                     onPress={() => {
 
                         if(localStorage.getItem('LOGINSTATE') === 'true'){
                             this.context.router.history.push('/message');
-                            this.setState({
-                                selectedTab: 'message',
-                            });
                         }else{
                             this.context.router.history.push('/signin');
-                            this.setState({
-                                selectedTab: 'signin',
-                            });
                         }
                     }}
                 >
@@ -68,18 +66,12 @@ export default class Footer extends React.Component {
                     selectedIcon={<Icon type={require('../../public/icon/buyCar.svg')} />}
                     title="购物车"
                     key="buyCar"
-                    selected={this.state.selectedTab === 'buyCar'}
+                    selected={this.state.selectedTab === '/buyCar'}
                     onPress={() => {
                         if(localStorage.getItem('LOGINSTATE') === 'true'){
                             this.context.router.history.push('/buyCar');
-                            this.setState({
-                                selectedTab: 'buyCar',
-                            });
                         }else{
                             this.context.router.history.push('/signin');
-                            this.setState({
-                                selectedTab: 'signin',
-                            });
                         }
                     }}
                 >
@@ -92,21 +84,14 @@ export default class Footer extends React.Component {
                     selectedIcon={<Icon type={require('../../public/icon/personal.svg')} />}
                     title="个人中心"
                     key="userInfo"
-                    selected={this.state.selectedTab === 'personal'}
+                    selected={this.state.selectedTab === '/personal'}
                     onPress={() => {
 
                         if(localStorage.getItem('LOGINSTATE') === 'true'){
                             this.context.router.history.push('/personal');
-                            this.setState({
-                                selectedTab: 'personal',
-                            });
                         }else{
                             this.context.router.history.push('/signin');
-                            this.setState({
-                                selectedTab: 'personal',
-                            });
                         }
-
                     }}
 
                 >
