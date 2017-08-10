@@ -12,7 +12,9 @@ import actions from '../../redux/actions/messageActions'
 const Item = List.Item;
 const Brief = Item.Brief;
 @connect((state)=>{
-    msgListObj:state.msgListObj
+    return {
+        msgData:state.msgData
+    }
 },{...actions})
 export default class extends Component{
    constructor(){
@@ -28,7 +30,6 @@ export default class extends Component{
 
 
     componentDidMount(){
-        
         ajax({
             url:`http://${ip}:8333/messages`,
             method:'POST',
@@ -38,17 +39,14 @@ export default class extends Component{
             }
             
         }).then((res)=>{
-            
-            console.log(res);
-            this.props.getMsgList(res)
-
+            this.props.getMsgList(res);
         }).catch((err)=>{
             console.log(err)
         })
     }
 
     render(){
-        let {messages,notice} = this.props.msgListObj;
+        let {messages,notice} = this.props.msgData.data;
         return(
         <div>
 
@@ -62,7 +60,7 @@ export default class extends Component{
 
 
                 <Link to="/orderList">
-                    <List renderHeader={() => '订单消息'} className="order-list">
+                  <List renderHeader={() => '订单消息'} className="order-list">
 
                         <Item
                             className="order-item"
