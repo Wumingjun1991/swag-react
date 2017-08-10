@@ -8,6 +8,9 @@ let port = require('../../../mock/port');
 import {Carousel,WhiteSpace,NavBar,Card,List,Radio,Stepper,Button,Flex} from 'antd-mobile';
 const RadioItem=Radio.RadioItem;
 export default class GoodsDetail extends Component {
+    static contextTypes = {
+        router: React.PropTypes.object
+    };
     constructor() {
         super();
         this.state = {
@@ -55,7 +58,7 @@ export default class GoodsDetail extends Component {
         return (
             <div className="container">
                 <NavBar
-                    onLeftClick = {this.props.turnBack}
+                    onLeftClick = {this.context.router.history.goBack}
                     mode="dark" className="head">
                     商品详情
                 </NavBar>

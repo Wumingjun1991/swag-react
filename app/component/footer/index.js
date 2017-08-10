@@ -51,7 +51,11 @@ export default class Footer extends React.Component {
                         this.setState({
                             selectedTab: 'message',
                         });
-                        this.context.router.history.push('/message');
+                        if(localStorage.getItem('LOGINSTATE') === 'true'){
+                            this.context.router.history.push('/message');
+                        }else{
+                            this.context.router.history.push('/signin');
+                        }
                     }}
                 >
                 </TabBar.Item>
@@ -65,7 +69,11 @@ export default class Footer extends React.Component {
                         this.setState({
                             selectedTab: 'buyCar',
                         });
-                        this.context.router.history.push('/buyCar');
+                        if(localStorage.getItem('LOGINSTATE') === 'true'){
+                            this.context.router.history.push('/buyCar');
+                        }else{
+                            this.context.router.history.push('/signin');
+                        }
                     }}
                 >
 
