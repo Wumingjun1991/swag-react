@@ -43,10 +43,7 @@ class Personal extends React.Component {
         console.log(this.props.history, "hahha");
         let { avatar, name } = this.props.data;
         return (<div>
-<<<<<<< HEAD
 
-=======
->>>>>>> 423e2e9229a9703432b9abcb5e1a33341b9bc876
             <NavbarTop>
                 <NavBar leftContent={null}
                         iconName={null}
