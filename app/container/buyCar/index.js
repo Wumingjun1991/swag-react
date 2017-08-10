@@ -8,10 +8,14 @@ const alert = Modal.alert;
 import { ajax } from "../../util/index";
 import ip from '../../util/ipLocation';
 
+import buyCarActions from '../../redux/actions/buyCarActions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 const AgreeItem = Checkbox.AgreeItem;
 
 
-export default class BuyCar extends Component {
+class BuyCar extends Component {
     constructor () {
         super();
         this.state = {
@@ -27,14 +31,17 @@ export default class BuyCar extends Component {
                 loged: true
             }
         }).then( (res) => {
-            this.setState({
-                // buyCarList: res.data.buyList
-                // ----- wyk 添加选择属性 -----
-                buyCarList: res.data.buyList.map(item => {
-                    item.checked = false;
-                    return item;
-                })
-            });
+
+            let buyCarList=res.data.buyList.map(item => {
+                         item.checked = false;
+                         return item;
+                     });
+
+            this.props.save_commodity({
+                buyCarList:buyCarList,
+                totalPrice:0
+            })
+
         }).catch( (e) => {
             console.log(e);
         })
@@ -43,58 +50,61 @@ export default class BuyCar extends Component {
     // ---wyk--- checked改变
     changeChecked(item,index){
         let flag = item.checked;
-        this.setState({
-            buyCarList:this.state.buyCarList.map((prev,inx) => {
+        this.props.save_commodity({
+            buyCarList:this.props.data.buyCarList.map((prev,inx) => {
                 if(inx === index){
                     prev.checked = !prev.checked;
                 }
                 return prev;
             }),
-            totalPrice: flag ? this.state.totalPrice - item.rmb
-                : this.state.totalPrice + item.rmb,
-        })
+            totalPrice: flag ? this.props.data.totalPrice - item.rmb
+                : this.props.data.totalPrice + item.rmb,
+        });
     }
 
     selectAll = (e) => {
         let toFlag = e.target.checked;
         let total = 0;
-        let newList = this.state.buyCarList.map((item) => {
+        let newList = this.props.data.buyCarList.map((item) => {
             total += item.rmb;
             item.checked = toFlag;
             return item;
         });
-        this.setState({
+        this.props.save_commodity({
             buyCarList: newList,
             totalPrice: toFlag ? total : 0,
         })
     };
 
     deleteItem(index){
-        let change = this.state.buyCarList[index].checked ? this.state.buyCarList[index].rmb : 0;
-        this.setState({
-            buyCarList:this.state.buyCarList.filter((item,inx)=>(
+        let change = this.props.data.buyCarList[index].checked ? this.props.data.buyCarList[index].rmb : 0;
+        this.props.save_commodity({
+            buyCarList:this.props.data.buyCarList.filter((item,inx)=>(
                 inx !== index
             )),
-            totalPrice:this.state.totalPrice - change,
+            totalPrice:this.props.data.totalPrice - change,
         })
-    }
+    };
+
+    add
+
 
 
     render () {
-
+        let {buyCarList,totalPrice}=this.props.data;
         return (
             <div className="csl_buyCar">
                 {/* nav */}
                 <NavBar
                     mode="light"
                     // iconName={require("../../public/icon/buyCar.svg")}
-                    iconName = "search"
+                    iconName = {null}
                 >购物车</NavBar>
 
                 {/* list */}
                 <WingBlank size="lg">
                     {
-                        this.state.buyCarList.map( (item, index) => (
+                        buyCarList.map( (item, index) => (
                             <Card key={index}>
                                 <Card.Header title={item.host}/>
                                 <span
@@ -135,14 +145,14 @@ export default class BuyCar extends Component {
                     <Flex>
                         <Flex.Item>
                             <AgreeItem
-                                checked={this.state.buyCarList.every(item=>item.checked)}
+                                checked={this.props.data.buyCarList.every(item=>item.checked)}
                                 data-seed="logId"
                                 onClick={this.selectAll}>
                                 <span>全选</span>
                             </AgreeItem>
                             <span className="total">
                                 合计：
-                                <em>￥{this.state.totalPrice}</em>
+                                <em>￥{this.props.data.totalPrice}</em>
                             </span>
                             {/*<span className="tips">不含运费和进口税</span>*/}
                             <Button className="btn am-button-small" type="ghost">立即付款</Button>
@@ -155,3 +165,16 @@ export default class BuyCar extends Component {
 }
 
 import "./buyCar.less";
+
+let mapStateToProps = state =>({
+    data:state.buyCarData,
+});
+
+let mapDisPatchToProps = dispatch =>bindActionCreators(
+    buyCarActions,dispatch
+);
+
+export default connect(
+    mapStateToProps,mapDisPatchToProps,
+)(BuyCar)
+
