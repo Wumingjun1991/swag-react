@@ -34,7 +34,7 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={Index}/>
                     <Route path="/buyCar" component={BuyCar}/>
-                    <Route path="/detail/123" component={GoodsDetail}/>
+                    <Route path="/detail/123" component={jump(GoodsDetail)()}/>
                     <Route path='/message' component={Message}/>
                     <Route path='/personal' component={Personal}/>
                     <Route path='/signin' component={Signin}/>
