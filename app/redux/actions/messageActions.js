@@ -3,7 +3,7 @@
  */
 import * as types from '../actionTypes/messageActionTypes'
 
-export let getMsgList = (msgListObj) =>{
+let getMsgList = (msgListObj) =>{
     return {
         type:types.MESSAGE_LIST,
         msgListObj
