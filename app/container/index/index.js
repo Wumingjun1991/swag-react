@@ -23,14 +23,15 @@ class Index extends React.Component{
             // 弹出
             jumpFlag: false,
         }
-
     }
     listenLoading=()=>{
-        if(this.props.list.length<50){
+        if(this.props.list.length>50){
             setTimeout(()=>{
                 this.setState({scrolling:false,hasMore:false})
             },20)
+            return;
         }
+        this.setState({scrolling:false})
         this.getSeach();
     }
     listenScroll=()=>{
@@ -79,7 +80,6 @@ class Index extends React.Component{
         });
     };
     getSeach=()=>{
-        console.log(1);
         ajax({
             url:`http://${ip}:8333/search/a`,
             method:'GET',
