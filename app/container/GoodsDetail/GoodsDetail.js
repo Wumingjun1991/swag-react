@@ -31,7 +31,6 @@ export default class GoodsDetail extends Component {
             url: `http://${ip}:${port}/detail/123`,
             method: 'GET'
         }).then((res) => {
-            console.log(res.data);
             this.setState({goods:res.data})
         })
     }
@@ -123,8 +122,8 @@ export default class GoodsDetail extends Component {
                     </List.Item>
                 </list>
                 <Flex className="footer" justify="end">
-                    <span className="car">加入购物车</span>
-                    <span className="buy">立即购买</span>
+                    <span onClick={()=>{this.context.router.history.push('/buyCar')}} className="car">加入购物车</span>
+                    <span onClick={()=>{this.context.router.history.push('/buyCar')}}  className="buy">立即购买</span>
                 </Flex>
             </div>
         )

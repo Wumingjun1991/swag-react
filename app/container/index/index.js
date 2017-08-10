@@ -169,7 +169,7 @@ class Index extends React.Component{
                     data={this.props.data.listImgs}
                       columnNum={4}
                       renderItem={dataItem => (
-                          <div style={{ padding: '0.25rem',border:'2px solid #ccc'  }}>
+                          <div style={{ padding: '0.25rem',border:'1px solid #ccc'  }}>
                               <img src={dataItem.src} style={{ width: '0.8rem', height: '0.8rem' }} alt="icon" />
                               <div style={{ color: '#888', fontSize: '0.28rem', marginTop: '0.14rem' }}>
                                   <span>{dataItem.name}</span>
