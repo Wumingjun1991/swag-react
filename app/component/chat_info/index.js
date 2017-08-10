@@ -12,59 +12,54 @@ export default class ChatInfo extends Component {
     constructor() {
         super();
         this.state = {
-            disabled: false,
-            code: 0,
-            data: {
-                avatar: '',
-                name: '',
-                username: '',
-                sellername: '',
-                selleravatar: '',
-
-            }
+           list:[]
         };
     }
     static contextTypes = {
         router: React.PropTypes.object
-    }
+    };
+    handleKeyDown = (e)=>{
+        if (e.keyCode === 13){
+            let content = e.target.value;
+            this.setState({
+                list:[...this.state.list,{
+                    avatar:this.state.list[0].avatar,
+                    content:content,
+                    user:'buy'
+                }]
+            });
+            e.target.value = ''
+        }
+    };
     componentWillMount() {
         ajax({
             method: 'GET',
-            url: `http://${ip}:8333/userinfo`
+            url: `http://${ip}:8333/chatinfo`
         }).then((res) => {
             console.log(res);
-            this.setState(res)
-        })
-        console.log(this.state);
+            setTimeout(()=>{
+                this.setState(res)
+            },1500)
+        });
     }
 
     render() {
         return (
-            <div>
+            <div className="chat-info">
                 <NavbarTop>
-                    <NavBar leftContent="back"
-                            iconName="left"
+                    <NavBar iconName="left"
                             onLeftClick={this.context.router.history.goBack}
-                            rightContent="设置"
-                            mode="light">{this.state.sellername}</NavBar>
+                            mode="light">金属检测服务</NavBar>
                 </NavbarTop>
-                <TalkPopover user={{
-                    avatar: this.state.data.avatar,
-                    user: 'buy'
-                }}/>
-                <TalkPopover user={{
-                    avatar: this.state.data.avatar,
-                    user: 'seller'
-                }}/>
-                <TalkPopover user={{
-                    avatar: this.state.data.avatar,
-                    user: 'buy'
-                }}/>
-                <TalkPopover user={{
-                    avatar:this.state.data.avatar,
-                    user:'buy'
-                }}/>
-                <div className="user-input">
+               {this.state.list.map((item,index)=>(
+                   <TalkPopover key={index} user={{
+                       avatar: item.avatar,
+                       user: item.user,
+                       content:item.content
+                   }}/>
+               ))
+                }
+                <div className="user-input" onKeyDown={(e)=>this.handleKeyDown(e)}>
                     <TextareaItem placeholder="输入内容" autoHeight="true"></TextareaItem>
                 </div>
             </div>

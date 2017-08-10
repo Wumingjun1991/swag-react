@@ -108,6 +108,15 @@ app.get('/userinfo',function (req, res){
     };
     res.send(JSON.stringify(data));
 });
+// 聊天页面请求响应
+app.get('/chatinfo',function (req,res) {
+    let data = {
+        list:[
+            {user:'seller',avatar:`http://www.wangyukai.xin:${port}/pdd.jpg`,content:'欢迎光临!骚猪为您服务'}
+        ]
+    };
+    res.send(JSON.stringify(data))
+});
 
 app.listen(port,()=>{
     console.log(`运行成功, 监听${8333}端口`);
