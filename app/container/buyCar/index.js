@@ -24,27 +24,31 @@ class BuyCar extends Component {
         }
     };
     componentDidMount () {
-        ajax({
-            url: `http://${ip}:8333/buycar`,
-            method: "post",
-            data: {
-                loged: true
-            }
-        }).then( (res) => {
+        if(!this.props.data.buyCarList.length
+                && !this.props.data.load
+        ){
+            ajax({
+                url: `http://${ip}:8333/buycar`,
+                method: "post",
+                data: {
+                    loged: true
+                }
+            }).then( (res) => {
 
-            let buyCarList=res.data.buyList.map(item => {
-                         item.checked = false;
-                         return item;
-                     });
+                let buyCarList=res.data.buyList.map(item => {
+                    item.checked = false;
+                    return item;
+                });
 
-            this.props.save_commodity({
-                buyCarList:buyCarList,
-                totalPrice:0
+                this.props.save_commodity({
+                    buyCarList:buyCarList,
+                    totalPrice:0
+                })
+
+            }).catch( (e) => {
+                console.log(e);
             })
-
-        }).catch( (e) => {
-            console.log(e);
-        })
+        }
     }
 
     // ---wyk--- checked改变
@@ -126,7 +130,7 @@ class BuyCar extends Component {
                                                     onChange={this.changeChecked.bind(this,item,index)}
                                                     checked={item.checked}
                                                     data-seed="logId"></AgreeItem>
-                                                <a href="#" className="hd_pic"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502169458847&di=04ceb7df91a29dd5fcdecf1d642be352&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110616%2F7177713_105928197391_2.jpg" width="160" height="150"/></a>
+                                                <a href="#" className="hd_pic"><img src={item.avatar} width="160" height="150"/></a>
                                                 <div className="hd_detailsWrap">
                                                     <h4>{item.name}</h4>
                                                     <p className="rmb_color">¥{item.rmb}</p>
