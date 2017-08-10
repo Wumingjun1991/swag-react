@@ -74,6 +74,7 @@ export default class extends React.Component{
         if(scrollTop>0){
             return
         }
+        this.setState({hasMore:true})
         this.getIndex();
         this.getSeach();
     }
