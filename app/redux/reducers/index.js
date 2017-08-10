@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import indexReducer from './indexReducer';
 import personalReducer from "./userData";
+import messageReducer from './messageReducer'
 
 export default combineReducers({
     ...indexReducer,
-    ...personalReducer
+    ...personalReducer,
+    ...messageReducer
 });

@@ -85,7 +85,7 @@ class Personal extends React.Component {
                     帮助中心
                 </Item>
             </List>
-            <List>
+            <List className="log-out">
                 <Button className="btn" type="primary">退出登录</Button>
             </List>
         </div>

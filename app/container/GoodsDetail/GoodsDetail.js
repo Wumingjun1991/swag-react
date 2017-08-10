@@ -8,6 +8,9 @@ let port = require('../../../mock/port');
 import {Carousel,WhiteSpace,NavBar,Card,List,Radio,Stepper,Button,Flex} from 'antd-mobile';
 const RadioItem=Radio.RadioItem;
 export default class GoodsDetail extends Component {
+    static contextTypes = {
+        router: React.PropTypes.object
+    };
     constructor() {
         super();
         this.state = {
@@ -28,7 +31,6 @@ export default class GoodsDetail extends Component {
             url: `http://${ip}:${port}/detail/123`,
             method: 'GET'
         }).then((res) => {
-            console.log(res.data);
             this.setState({goods:res.data})
         })
     }
@@ -55,7 +57,7 @@ export default class GoodsDetail extends Component {
         return (
             <div className="container">
                 <NavBar
-                    onLeftClick = {this.props.turnBack}
+                    onLeftClick = {this.context.router.history.goBack}
                     mode="dark" className="head">
                     商品详情
                 </NavBar>
@@ -120,8 +122,8 @@ export default class GoodsDetail extends Component {
                     </List.Item>
                 </list>
                 <Flex className="footer" justify="end">
-                    <span className="car">加入购物车</span>
-                    <span className="buy">立即购买</span>
+                    <span onClick={()=>{this.context.router.history.push('/buyCar')}} className="car">加入购物车</span>
+                    <span onClick={()=>{this.context.router.history.push('/buyCar')}}  className="buy">立即购买</span>
                 </Flex>
             </div>
         )

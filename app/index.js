@@ -16,6 +16,7 @@ import Message from './container/message/message'; // gp
 import Footer from './component/footer/index'
 import Personal from './container/Personal/index'//wmj
 import OrderList from './container/orderList'// wyk
+import ChatInfo from './component/chat_info/index'// wmj
 
 // redux
 import { createStore } from 'redux';
@@ -33,13 +34,15 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={Index}/>
                     <Route path="/buyCar" component={BuyCar}/>
-                    <Route path="/detail/123" component={GoodsDetail}/>
+                    <Route path="/detail/123" component={jump(GoodsDetail)()}/>
                     <Route path='/message' component={Message}/>
                     <Route path='/personal' component={Personal}/>
                     <Route path='/signin' component={Signin}/>
                     <Route path='/signup' component={Signup}/>
                     {/*订单信息*/}
                     <Route path='/orderList' component={jump(OrderList)()}/>
+                    {/*聊天信息*/}
+                    <Route path='/chatInfo' component={jump(ChatInfo)()}/>
                 </Switch>
                 <Footer/>
             </div>

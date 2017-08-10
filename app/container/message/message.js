@@ -1,20 +1,19 @@
 import React,{Component} from 'react';
 import {ajax} from '../../util/index.js';
 import { NavBar, Icon } from 'antd-mobile';
+import {Link} from 'react-router-dom'
 import { List } from 'antd-mobile';
 import { WhiteSpace } from 'antd-mobile';
 import NavbarTop from '../../component/navbar_top/index';
 import './message.less';
 import ip from '../../util/ipLocation';
-
-import OrderList from '../orderList';
-import jumpcomponent from '../../component/jumpcomponent';
-
+import {connect} from 'react-redux'
+import actions from '../../redux/actions/messageActions'
 const Item = List.Item;
 const Brief = Item.Brief;
-
-let jumpWaitFlag = jumpcomponent(OrderList);
-
+@connect((state)=>{
+    msgListObj:state.msgListObj
+},{...actions})
 export default class extends Component{
    constructor(){
        super();
@@ -24,8 +23,6 @@ export default class extends Component{
                messages:[{avatar:'',sender:'',content:'',time:''}],
                notice:{name:'',msg:''}
            },
-           // 移入移出
-           jumpFlag:false,
        }
    }
 
@@ -43,28 +40,19 @@ export default class extends Component{
         }).then((res)=>{
             
             console.log(res);
-            this.setState(res)
+            this.props.getMsgList(res)
 
         }).catch((err)=>{
             console.log(err)
         })
     }
 
-    jumpOut = () => {
-        this.setState({
-            jumpFlag: true,
-        });
-    };
-
     render(){
-        let {messages,notice} = this.state.data;
-        let Jump = jumpWaitFlag(this.state.jumpFlag);
+        let {messages,notice} = this.props.msgListObj;
         return(
         <div>
-            <Jump/>
-            <div className='message'>
-                {this.state.jumpFlag.toString()}
 
+            <div className='message'>
                 {/*导航   */}
                 <NavbarTop>
                     <NavBar leftContent={null}
@@ -73,19 +61,19 @@ export default class extends Component{
                 </NavbarTop>
 
 
-                <List renderHeader={() => '订单消息'} className="order-list">
+                <Link to="/orderList">
+                    <List renderHeader={() => '订单消息'} className="order-list">
 
-                    <Item
-                        className="order-item"
-                        thumb={messages[0].avatar}
-                        multipleLine
-                        onClick={this.jumpOut}
-                    >
-                        {notice.name}
-
-                        <Brief>{notice.msg}</Brief>
-                    </Item>
-                </List>
+                        <Item
+                            className="order-item"
+                            thumb={messages[0].avatar}
+                            multipleLine
+                        >
+                            {notice.name}
+                            <Brief>{notice.msg}</Brief>
+                        </Item>
+                    </List>
+                </Link>
 
                 {/*留白   */}
                 <WhiteSpace size="lg" />
@@ -94,18 +82,19 @@ export default class extends Component{
                     {
                         messages.map((item,index)=>(
 
-                            <Item key={index}
-                                  className="chat-item"
-                                  thumb={item.avatar}
-                                  multipleLine
-                                  onClick={() => {}}
-                            >
+                            <Link to="/chatInfo" key={index}>
+                                <Item className="chat-item"
+                                      thumb={item.avatar}
+                                      multipleLine
+                                      onClick={() => {}}
+                                >
 
-                                {item.sender}
-                                <span>{item.time}</span>
-                                <Brief>{item.content}</Brief>
+                                    {item.sender}
+                                    <span>{item.time}</span>
+                                    <Brief>{item.content}</Brief>
 
-                            </Item>
+                                </Item>
+                            </Link>
 
                         ))
 
