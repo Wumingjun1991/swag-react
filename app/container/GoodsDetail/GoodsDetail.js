@@ -22,7 +22,7 @@ export default class GoodsDetail extends Component {
                 avatar: ''
             },
             value:0,
-            val:0
+            val:1
         }
     }
 

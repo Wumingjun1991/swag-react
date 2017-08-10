@@ -15,7 +15,6 @@ class Index extends React.Component{
     constructor(){
         super();
         this.state = {
-            list:[],
             // 是否展示搜索框
             search:false,
             scrolling:false,
@@ -27,21 +26,12 @@ class Index extends React.Component{
 
     }
     listenLoading=()=>{
-        ajax({
-            url:`http://${ip}:8333/search/a`,
-            method:'GET',
-        }).then((data)=>{
-            this.setState({
-                list:[...this.state.list,...data.data]
-            })
-            if(this.state.list.length<50){
-                setTimeout(()=>{
-                    this.setState({scrolling:false,hasMore:false})
-                },20)
-            }
-        }).catch((err)=>{
-            console.log(err);
-        })
+        if(this.props.list.length<50){
+            setTimeout(()=>{
+                this.setState({scrolling:false,hasMore:false})
+            },20)
+        }
+        this.getSeach();
     }
     listenScroll=()=>{
         let scrollHeight=document.body.scrollHeight;
@@ -57,6 +47,7 @@ class Index extends React.Component{
     tMove=(e)=>{
         let curTouchY=e.touches[0].clientY;
         let scrollTop=document.body.scrollTop;
+        console.log((curTouchY - this.touchY));
         if((curTouchY-this.touchY)<0||scrollTop>0){
             return
         }
@@ -72,7 +63,9 @@ class Index extends React.Component{
         if(scrollTop>0){
             return
         }
+        this.props.curPosition(scrollTop)
         this.setState({hasMore:true,scrolling:false})
+        this.props.clearListData();
         this.getIndex();
         this.getSeach();
     }
@@ -87,13 +80,12 @@ class Index extends React.Component{
         });
     };
     getSeach=()=>{
+        console.log(1);
         ajax({
             url:`http://${ip}:8333/search/a`,
             method:'GET',
         }).then((data)=>{
-            this.setState({
-                list:data.data
-            })
+            this.props.addListData(data.data)
         }).catch((err)=>{
             console.log(err);
         })
@@ -108,9 +100,10 @@ class Index extends React.Component{
     componentWillMount(){
         // 首页slider + bar
         let bd=document.body;
-        this.getIndex();
+        bd.style.marginTop=this.props.curP+'px';
+        this.props.data.listImgs.length===0?this.getIndex():null;
+        this.props.list.length===0?this.getSeach():console.log('你变了');
         // 商品列表
-        this.getSeach();
         window.addEventListener('scroll',this.listenScroll)
         bd.addEventListener('touchstart',this.tStart);
         bd.addEventListener('touchmove',this.tMove);
@@ -182,7 +175,7 @@ class Index extends React.Component{
                 <WhiteSpace size="lg" />
                 <Grid
                     onClick={this.moveOut}
-                    data={this.state.list}
+                    data={this.props.list}
                       columnNum={2}
                       hasLine={true}
                       renderItem={dataItem => (
@@ -205,7 +198,9 @@ class Index extends React.Component{
     }
 }
 let mapStateToProps=state=>({
-    data:state.indexData.data
+    data:state.indexData.data,
+    list:state.indexData.list,
+    curP:state.indexData.curP
 });
 let mapDispatchToProps=dispatch=>bindActionCreators(indexActions,dispatch)
 export default connect(
