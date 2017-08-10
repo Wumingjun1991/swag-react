@@ -2,12 +2,12 @@
  * Created by w4995 on 2017/8/10.
  */
 import * as types from '../actionTypes/messageActionTypes'
-let msgData = (state={},action) =>{
+let msgData = (state={code:0,data:{}},action) =>{
     switch (action.types){
         case types.MESSAGE_LIST:
-            return action.msgData;
+            return action.msgListObj;
         default :
-            state
+            return state;
     }
 }
 

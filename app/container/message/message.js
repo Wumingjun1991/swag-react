@@ -12,7 +12,7 @@ import actions from '../../redux/actions/messageActions'
 const Item = List.Item;
 const Brief = Item.Brief;
 @connect((state)=>{
-    msgList:state.msgList
+    msgListObj:state.msgListObj
 },{...actions})
 export default class extends Component{
    constructor(){
@@ -48,7 +48,7 @@ export default class extends Component{
     }
 
     render(){
-        let {messages,notice} = this.props.data;
+        let {messages,notice} = this.props.msgListObj;
         return(
         <div>
 
