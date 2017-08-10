@@ -16,6 +16,7 @@ import Message from './container/message/message'; // gp
 import Footer from './component/footer/index'
 import Personal from './container/Personal/index'//wmj
 import OrderList from './container/orderList'// wyk
+import ChatInfo from './component/chat_info/index'// wmj
 
 // redux
 import { createStore } from 'redux';
@@ -40,6 +41,8 @@ ReactDOM.render(
                     <Route path='/signup' component={Signup}/>
                     {/*订单信息*/}
                     <Route path='/orderList' component={jump(OrderList)()}/>
+                    {/*聊天信息*/}
+                    <Route path='/chatInfo' component={jump(ChatInfo)()}/>
                 </Switch>
                 <Footer/>
             </div>
