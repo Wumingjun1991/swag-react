@@ -4,9 +4,15 @@
 import React, {Component} from 'react';
 import {ajax} from '../../util/index';
 import ip from '../../util/ipLocation';
+import { connect } from 'react-redux';
+import actions from '../../redux/actions/buyCarActions';
 let port = require('../../../mock/port');
 import {Carousel,WhiteSpace,NavBar,Card,List,Radio,Stepper,Button,Flex} from 'antd-mobile';
 const RadioItem=Radio.RadioItem;
+
+@connect((state)=>({}),{
+    ...actions
+})
 export default class GoodsDetail extends Component {
     static contextTypes = {
         router: React.PropTypes.object
@@ -50,7 +56,7 @@ export default class GoodsDetail extends Component {
             aryData.push({value:index,label:item})
         })
         return aryData;
-    }
+    };
     render() {
         let {value} = this.state;
         let {images,avatar,name,description,standard} = this.state.goods;
@@ -103,7 +109,7 @@ export default class GoodsDetail extends Component {
                 </List>
                 <WhiteSpace/>
                 <list>
-                    <List.Item
+                    {/*<List.Item
                         className="select"
                         wrap
                         extra={
@@ -119,10 +125,22 @@ export default class GoodsDetail extends Component {
                         }
                     >
                         请选择商品数量
-                    </List.Item>
+                    </List.Item>*/}
                 </list>
+                <div style={{
+                    height:'1rem'
+                }}></div>
                 <Flex className="footer" justify="end">
-                    <span onClick={()=>{this.context.router.history.push('/buyCar')}} className="car">加入购物车</span>
+                    <span onClick={()=>{
+                        this.props.add_commodity({
+                            avatar:'http://localhost:8333/1.jpg',
+                            host: '北京xxxx公司',
+                            rmb: 500,
+                            name: '金属探测仪',
+                            content: '采用t7302389719731928'
+                        });
+                        this.props.history.push('/buyCar');
+                    }} className="car">加入购物车</span>
                     <span onClick={()=>{this.context.router.history.push('/buyCar')}}  className="buy">立即购买</span>
                 </Flex>
             </div>
