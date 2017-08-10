@@ -48,13 +48,17 @@ export default class Footer extends React.Component {
                     key="message"
                     selected={this.state.selectedTab === 'message'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'message',
-                        });
+
                         if(localStorage.getItem('LOGINSTATE') === 'true'){
                             this.context.router.history.push('/message');
+                            this.setState({
+                                selectedTab: 'message',
+                            });
                         }else{
                             this.context.router.history.push('/signin');
+                            this.setState({
+                                selectedTab: 'signin',
+                            });
                         }
                     }}
                 >
@@ -66,13 +70,16 @@ export default class Footer extends React.Component {
                     key="buyCar"
                     selected={this.state.selectedTab === 'buyCar'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'buyCar',
-                        });
                         if(localStorage.getItem('LOGINSTATE') === 'true'){
                             this.context.router.history.push('/buyCar');
+                            this.setState({
+                                selectedTab: 'buyCar',
+                            });
                         }else{
                             this.context.router.history.push('/signin');
+                            this.setState({
+                                selectedTab: 'signin',
+                            });
                         }
                     }}
                 >
@@ -87,13 +94,17 @@ export default class Footer extends React.Component {
                     key="userInfo"
                     selected={this.state.selectedTab === 'personal'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'personal',
-                        });
+
                         if(localStorage.getItem('LOGINSTATE') === 'true'){
                             this.context.router.history.push('/personal');
+                            this.setState({
+                                selectedTab: 'personal',
+                            });
                         }else{
                             this.context.router.history.push('/signin');
+                            this.setState({
+                                selectedTab: 'personal',
+                            });
                         }
 
                     }}
