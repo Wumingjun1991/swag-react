@@ -24,7 +24,9 @@ export default class ChatInfo extends Component {
             }
         };
     }
-
+    static contextTypes = {
+        router: React.PropTypes.object
+    }
     componentWillMount() {
         ajax({
             method: 'GET',
@@ -42,6 +44,7 @@ export default class ChatInfo extends Component {
                 <NavbarTop>
                     <NavBar leftContent="back"
                             iconName="left"
+                            onLeftClick={this.context.router.history.goBack}
                             rightContent="设置"
                             mode="light">{this.state.sellername}</NavBar>
                 </NavbarTop>

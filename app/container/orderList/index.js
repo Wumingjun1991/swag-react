@@ -109,8 +109,6 @@ class OrderList extends React.Component{
                     }
                 </List>
                 <div style={{height:'1rem',background:'#f5f5f9'}}></div>
-
-
             </div>
 
         )
