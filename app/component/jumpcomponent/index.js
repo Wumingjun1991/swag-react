@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 
 
-export default (OldComponent, data)=> (flag) => {
+export default (OldComponent, data) =>data =>  {
     // flag: true 左移 false 右
     return class extends React.Component{
         constructor(){
@@ -16,80 +16,21 @@ export default (OldComponent, data)=> (flag) => {
                 left: '100%',
             };
         }
-        componentWillMount(){
-            flag ?
-                setTimeout(()=>{
-                    this.setState({
-                        left:'0%'
-                    })
-                },30) : null;
+        componentDidMount(){
+            setTimeout(()=>{
+                this.setState({
+                    left:'0%'
+                })
+            },30)
         }
-        turnBack = ()=>{
-            this.setState({
-                left:'100%'
-            })
-        };
         render(){
             return(
                 <div style={this.state}>
-                    <OldComponent {...data} turnBack={this.turnBack} />
+                    <OldComponent {...data} />
                 </div>
             )
         }
     };
-
-    let render = () => {
-        console.log('render');
-        return (
-            <div style={style}>
-                <OldComponent {...data} />
-            </div>
-        )
-    }
-
-
-}
-
-
-class JumpComponent extends Component{
-    constructor(){
-        super();
-        this.state={
-            left:'100%',
-        };
-    }
-    left = () =>{
-        this.$timer = setInterval(()=>{
-            this.setState({left : '0%'});
-        },3000)
-    };
-    right = () =>{
-        this.setState({left : '100%'});
-
-    };
-    componentDidMount(){
-        if (this.props.flag == true){
-            this.left()
-        }
-    }
-    render(){
-        let style={
-            width:'100%',
-            height:'100%',
-            background:'#ccc',
-            position:'fixed',
-            zIndex:'101',
-            transitionDuration:'1s',
-            left:this.state.left,
-        };
-        return(
-            <div style={style}>
-                {this.props.children}
-            </div>
-        )
-
-    }
-
 }
 
 
