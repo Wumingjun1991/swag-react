@@ -15,7 +15,7 @@ let buyCarData = function (state = initstate, actions) {
         case types.ADD_COMMODITY:
             actions.data.checked = false;
             return{
-                buyCarList:[...state.buyCarList,...actions.data],
+                buyCarList:[...state.buyCarList,actions.data],
                 totalPrice: state.totalPrice
             };
         default:
