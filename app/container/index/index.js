@@ -47,7 +47,6 @@ class Index extends React.Component{
     tMove=(e)=>{
         let curTouchY=e.touches[0].clientY;
         let scrollTop=document.body.scrollTop;
-        console.log((curTouchY - this.touchY));
         if((curTouchY-this.touchY)<0||scrollTop>0){
             return
         }
@@ -60,10 +59,10 @@ class Index extends React.Component{
         this.setState({getting:false})
         document.body.style.marginTop='0px';
         let scrollTop=document.body.scrollTop;
+        this.props.curPosition(scrollTop)
         if(scrollTop>0){
             return
         }
-        this.props.curPosition(scrollTop)
         this.setState({hasMore:true,scrolling:false})
         this.props.clearListData();
         this.getIndex();
@@ -100,9 +99,11 @@ class Index extends React.Component{
     componentWillMount(){
         // 首页slider + bar
         let bd=document.body;
-        bd.style.marginTop=this.props.curP+'px';
+        setTimeout(()=>{
+            bd.scrollTop=this.props.curP;
+        },20)
         this.props.data.listImgs.length===0?this.getIndex():null;
-        this.props.list.length===0?this.getSeach():console.log('你变了');
+        this.props.list.length===0?this.getSeach():null;
         // 商品列表
         window.addEventListener('scroll',this.listenScroll)
         bd.addEventListener('touchstart',this.tStart);
