@@ -1,9 +1,13 @@
 import * as types from '../actionTypes/indexActionTypes';
-let indexData = function (state = {}, actions) {
+let initData={
+    data:{
+        sliderImgs:[],
+        listImgs:[]
+    }
+}
+let indexData = function (state =initData , actions) {
     if( actions.type === types.SAVE_DATA ){
-        return {
-            a:123
-        }
+        return {data:actions.data}
     }
     return state;
 };

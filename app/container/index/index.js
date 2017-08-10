@@ -6,17 +6,14 @@ import NavbarTop from "../../component/navbar_top/index";
 import ip from '../../util/ipLocation';
 import GoodsDetail from '../GoodsDetail/GoodsDetail';
 import jumpcomponent from '../../component/jumpcomponent';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import indexActions from '../../redux/actions/indexActions'
 let jumpWaitFlag = jumpcomponent(GoodsDetail);
-
-export default class extends React.Component{
+class Index extends React.Component{
     constructor(){
         super();
         this.state = {
-            data: {
-                sliderImgs:[],
-                listImgs:[]
-            },
             list:[],
             // 是否展示搜索框
             search:false,
@@ -74,7 +71,7 @@ export default class extends React.Component{
         if(scrollTop>0){
             return
         }
-        this.setState({hasMore:true})
+        this.setState({hasMore:true,scrolling:false})
         this.getIndex();
         this.getSeach();
     }
@@ -83,9 +80,7 @@ export default class extends React.Component{
             url:`http://${ip}:8333/index`,
             method:'GET',
         }).then((data)=>{
-            this.setState({
-                data:data.data
-            })
+            this.props.saveDate(data.data);
         }).catch((err)=>{
             console.log(err);
         });
@@ -160,7 +155,7 @@ export default class extends React.Component{
                     selectedIndex={1}
                     swipeSpeed={35}
                 >
-                    {this.state.data.sliderImgs.map((item,index) => (
+                    {this.props.data.sliderImgs.map((item,index) => (
                         <a key={index}>
                             <img style={{width:"100%",height:"4rem"}} src={item} alt="icon"/>
                         </a>
@@ -170,7 +165,7 @@ export default class extends React.Component{
                 {/*bar*/}
                 <Grid
                     onClick={this.moveOut}
-                    data={this.state.data.listImgs}
+                    data={this.props.data.listImgs}
                       columnNum={4}
                       renderItem={dataItem => (
                           <div style={{ padding: '0.25rem',border:'2px solid #ccc'  }}>
@@ -206,4 +201,12 @@ export default class extends React.Component{
         )
     }
 }
+let mapStateToProps=state=>({
+    data:state.indexData.data
+});
+let mapDispatchToProps=dispatch=>bindActionCreators(indexActions,dispatch)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Index);
 import './index.less'
