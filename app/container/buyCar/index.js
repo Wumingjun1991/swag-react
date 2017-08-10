@@ -23,7 +23,7 @@ class BuyCar extends Component {
             totalPrice: 0
         }
     };
-    componentWillMount () {
+    componentDidMount () {
         ajax({
             url: `http://${ip}:8333/buycar`,
             method: "post",

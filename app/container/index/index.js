@@ -6,18 +6,15 @@ import NavbarTop from "../../component/navbar_top/index";
 import ip from '../../util/ipLocation';
 import GoodsDetail from '../GoodsDetail/GoodsDetail';
 import jumpcomponent from '../../component/jumpcomponent';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import indexActions from '../../redux/actions/indexActions';
+import {Link} from 'react-router-dom';
 let jumpWaitFlag = jumpcomponent(GoodsDetail);
-
-export default class extends React.Component{
+class Index extends React.Component{
     constructor(){
         super();
         this.state = {
-            data: {
-                sliderImgs:[],
-                listImgs:[]
-            },
-            list:[],
             // 是否展示搜索框
             search:false,
             scrolling:false,
@@ -29,21 +26,12 @@ export default class extends React.Component{
 
     }
     listenLoading=()=>{
-        ajax({
-            url:`http://${ip}:8333/search/a`,
-            method:'GET',
-        }).then((data)=>{
-            this.setState({
-                list:[...this.state.list,...data.data]
-            })
-            if(this.state.list.length<50){
-                setTimeout(()=>{
-                    this.setState({scrolling:false,hasMore:false})
-                },20)
-            }
-        }).catch((err)=>{
-            console.log(err);
-        })
+        if(this.props.list.length<50){
+            setTimeout(()=>{
+                this.setState({scrolling:false,hasMore:false})
+            },20)
+        }
+        this.getSeach();
     }
     listenScroll=()=>{
         let scrollHeight=document.body.scrollHeight;
@@ -57,12 +45,14 @@ export default class extends React.Component{
         this.touchY=e.touches[0].clientY;
     }
     tMove=(e)=>{
-        this.setState({getting:true})
         let curTouchY=e.touches[0].clientY;
         let scrollTop=document.body.scrollTop;
-        console.log(scrollTop);
+        console.log((curTouchY - this.touchY));
         if((curTouchY-this.touchY)<0||scrollTop>0){
             return
+        }
+        if((curTouchY-this.touchY)>300){
+            this.setState({getting:true})
         }
         document.body.style.marginTop=(curTouchY-this.touchY)*0.3+'px';
     }
@@ -73,6 +63,9 @@ export default class extends React.Component{
         if(scrollTop>0){
             return
         }
+        this.props.curPosition(scrollTop)
+        this.setState({hasMore:true,scrolling:false})
+        this.props.clearListData();
         this.getIndex();
         this.getSeach();
     }
@@ -81,21 +74,18 @@ export default class extends React.Component{
             url:`http://${ip}:8333/index`,
             method:'GET',
         }).then((data)=>{
-            this.setState({
-                data:data.data
-            })
+            this.props.saveDate(data.data);
         }).catch((err)=>{
             console.log(err);
         });
     };
     getSeach=()=>{
+        console.log(1);
         ajax({
             url:`http://${ip}:8333/search/a`,
             method:'GET',
         }).then((data)=>{
-            this.setState({
-                list:data.data
-            })
+            this.props.addListData(data.data)
         }).catch((err)=>{
             console.log(err);
         })
@@ -110,9 +100,10 @@ export default class extends React.Component{
     componentWillMount(){
         // 首页slider + bar
         let bd=document.body;
-        this.getIndex();
+        bd.style.marginTop=this.props.curP+'px';
+        this.props.data.listImgs.length===0?this.getIndex():null;
+        this.props.list.length===0?this.getSeach():console.log('你变了');
         // 商品列表
-        this.getSeach();
         window.addEventListener('scroll',this.listenScroll)
         bd.addEventListener('touchstart',this.tStart);
         bd.addEventListener('touchmove',this.tMove);
@@ -158,8 +149,8 @@ export default class extends React.Component{
                     selectedIndex={1}
                     swipeSpeed={35}
                 >
-                    {this.state.data.sliderImgs.map((item,index) => (
-                        <a key={index}>
+                    {this.props.data.sliderImgs.map((item,index) => (
+                        <a key= {index}>
                             <img style={{width:"100%",height:"4rem"}} src={item} alt="icon"/>
                         </a>
                     ))}
@@ -168,10 +159,10 @@ export default class extends React.Component{
                 {/*bar*/}
                 <Grid
                     onClick={this.moveOut}
-                    data={this.state.data.listImgs}
+                    data={this.props.data.listImgs}
                       columnNum={4}
                       renderItem={dataItem => (
-                          <div style={{ padding: '0.25rem',border:'2px solid #ccc'  }}>
+                          <div style={{ padding: '0.25rem',border:'1px solid #ccc'  }}>
                               <img src={dataItem.src} style={{ width: '0.8rem', height: '0.8rem' }} alt="icon" />
                               <div style={{ color: '#888', fontSize: '0.28rem', marginTop: '0.14rem' }}>
                                   <span>{dataItem.name}</span>
@@ -184,19 +175,21 @@ export default class extends React.Component{
                 <WhiteSpace size="lg" />
                 <Grid
                     onClick={this.moveOut}
-                    data={this.state.list}
+                    data={this.props.list}
                       columnNum={2}
                       hasLine={true}
                       renderItem={dataItem => (
-                          <div style={{ padding: '0.15rem', border:'2px solid #ccc' }}>
-                              <img src={dataItem.src} style={{ width: '2.5rem', height: '2.5rem' }} alt="icon" />
-                              <div style={{ color: '#000', fontSize: '0.3rem', }}>
-                                  <span>{dataItem.name}</span>
-                                  <div style={{ padding:'0.1rem 0.5rem',textAlign:'left',height:'0.5rem'}}>
-                                      <span style={{ fontSize: '0.3rem' }}>￥{dataItem.rmb}</span><span style={{ lineHeight:'0.3rem',fontSize: '0.23rem', float:'right',color:'red' }}>热度:{dataItem.hot}</span>
+                          <Link to={`/detail/123`}>
+                              <div style={{ padding: '0.15rem', border:'2px solid #ccc' }}>
+                                  <img src={dataItem.src} style={{ width: '2.5rem', height: '2.5rem' }} alt="icon" />
+                                  <div style={{ color: '#000', fontSize: '0.3rem', }}>
+                                      <span>{dataItem.name}</span>
+                                      <div style={{ padding:'0.1rem 0.5rem',textAlign:'left',height:'0.5rem'}}>
+                                          <span style={{ fontSize: '0.3rem' }}>￥{dataItem.rmb}</span><span style={{ lineHeight:'0.3rem',fontSize: '0.23rem', float:'right',color:'red' }}>热度:{dataItem.hot}</span>
+                                      </div>
                                   </div>
                               </div>
-                          </div>
+                          </Link>
                       )}
                 />
                 {!this.state.hasMore?<div style={{width:'100%',height:'1rem',lineHeight:'1rem',textAlign:'center',paddingBottom:'1rem'}}>没有更多</div>:null}
@@ -204,4 +197,14 @@ export default class extends React.Component{
         )
     }
 }
+let mapStateToProps=state=>({
+    data:state.indexData.data,
+    list:state.indexData.list,
+    curP:state.indexData.curP
+});
+let mapDispatchToProps=dispatch=>bindActionCreators(indexActions,dispatch)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Index);
 import './index.less'

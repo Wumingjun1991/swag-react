@@ -17,6 +17,13 @@ export default class Footer extends React.Component {
     static contextTypes = {
         router: React.PropTypes.object
     };
+    componentDidMount(){
+        this.context.router.history.listen((data)=>{
+            this.setState({
+                selectedTab: data.pathname,
+            })
+        })
+    }
     render() {
         return (
             <TabBar
@@ -31,11 +38,8 @@ export default class Footer extends React.Component {
                     key="index"
                     icon={<Icon type={require('../../public/icon/index.svg')} />}
                     selectedIcon={<Icon type={require('../../public/icon/index.svg')} />}
-                    selected={this.state.selectedTab === 'index'}
+                    selected={this.state.selectedTab === '/'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'index',
-                        });
                         this.context.router.history.push('/');
                     }}
                 >
@@ -46,12 +50,14 @@ export default class Footer extends React.Component {
                     selectedIcon={<Icon type={require('../../public/icon/message.svg')} />}
                     title="消息"
                     key="message"
-                    selected={this.state.selectedTab === 'message'}
+                    selected={this.state.selectedTab === '/message'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'message',
-                        });
-                        this.context.router.history.push('/message');
+
+                        if(localStorage.getItem('LOGINSTATE') === 'true'){
+                            this.context.router.history.push('/message');
+                        }else{
+                            this.context.router.history.push('/signin');
+                        }
                     }}
                 >
                 </TabBar.Item>
@@ -60,12 +66,13 @@ export default class Footer extends React.Component {
                     selectedIcon={<Icon type={require('../../public/icon/buyCar.svg')} />}
                     title="购物车"
                     key="buyCar"
-                    selected={this.state.selectedTab === 'buyCar'}
+                    selected={this.state.selectedTab === '/buyCar'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'buyCar',
-                        });
-                        this.context.router.history.push('/buyCar');
+                        if(localStorage.getItem('LOGINSTATE') === 'true'){
+                            this.context.router.history.push('/buyCar');
+                        }else{
+                            this.context.router.history.push('/signin');
+                        }
                     }}
                 >
 
@@ -77,17 +84,14 @@ export default class Footer extends React.Component {
                     selectedIcon={<Icon type={require('../../public/icon/personal.svg')} />}
                     title="个人中心"
                     key="userInfo"
-                    selected={this.state.selectedTab === 'personal'}
+                    selected={this.state.selectedTab === '/personal'}
                     onPress={() => {
-                        this.setState({
-                            selectedTab: 'personal',
-                        });
+
                         if(localStorage.getItem('LOGINSTATE') === 'true'){
                             this.context.router.history.push('/personal');
                         }else{
                             this.context.router.history.push('/signin');
                         }
-
                     }}
 
                 >

@@ -7,12 +7,15 @@ import './index.less'
 import NavbarTop from '../../component/navbar_top/index'
 import ip from '../../util/ipLocation';
 import {ajax} from '../../util/index'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import actions from "../../redux/actions/userData";
 
 
 const Item = List.Item;
 const Brief = Item.Brief;
 
-export default class Personal extends React.Component {
+class Personal extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -26,18 +29,24 @@ export default class Personal extends React.Component {
         };
     }
     componentWillMount(){
-        ajax({
-            method:'GET',
-            url:`http://${ip}:8333/userinfo`
-        }).then((res)=>{
-            console.log(res);
-            this.setState(res)
-        });
+        if (this.props.data.avatar == undefined) {
+            ajax({
+                method:'GET',
+                url:`http://${ip}:8333/userinfo`
+            }).then((res)=>{
+                this.props.userDataActions(res.data);
+            });
+        }
 
     }
     render() {
+        console.log(this.props.history, "hahha");
+        let { avatar, name } = this.props.data;
         return (<div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 423e2e9229a9703432b9abcb5e1a33341b9bc876
             <NavbarTop>
                 <NavBar leftContent={null}
                         iconName={null}
@@ -49,11 +58,11 @@ export default class Personal extends React.Component {
                     <Card.Header
                         title={
                             <div style={{width:'1.5rem',}}>
-                                <p style={{marginLeft:'0.5rem',width:'1.5rem',fontSize:'0.4rem'}}>{this.state.data.name}</p>
+                                <p style={{marginLeft:'0.5rem',width:'1.5rem',fontSize:'0.4rem'}}>{name}</p>
                                 {/*<p style={{marginLeft:'0.1rem',width:'1.5rem',fontSize:'0.23rem',color:'#ccc'}}>会员帐号:{this.state.data.username}</p>*/}
                             </div>
                         }
-                        thumb={this.state.data.avatar}
+                        thumb={avatar}
                         thumbStyle={{width:'1.3rem',height:'1.3rem',borderRadius:'50%'}}
                         extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}
                     />
@@ -80,10 +89,32 @@ export default class Personal extends React.Component {
                     帮助中心
                 </Item>
             </List>
-            <List>
-                <Button className="btn" type="primary">退出登录</Button>
+            <List className="log-out">
+                <Button onClick={
+                    ()=>{
+                        localStorage.removeItem('LOGINSTATE');
+                        this.props.history.push('/signin');
+                    }
+                } className="btn" type="primary">退出登录</Button>
             </List>
         </div>
         );
     }
 }
+
+
+let mapStateToProps = (state) => {
+    console.log(state.userDateReducer, "帅帅帅😄");
+    return {
+        data : state.userDateReducer
+    }
+};
+
+let mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Personal);
+
+
