@@ -10,7 +10,7 @@ export default (OldComponent, data)=> (flag) => {
                 width:'100%',
                 height:'100%',
                 background:'#f5f5f9',
-                position:'fixed',
+                position:'absolute',
                 zIndex:'101',
                 transitionDuration:'0.5s',
                 left: '100%',
