@@ -57,12 +57,13 @@ export default class extends React.Component{
         this.touchY=e.touches[0].clientY;
     }
     tMove=(e)=>{
-        this.setState({getting:true})
         let curTouchY=e.touches[0].clientY;
         let scrollTop=document.body.scrollTop;
-        console.log(scrollTop);
         if((curTouchY-this.touchY)<0||scrollTop>0){
             return
+        }
+        if((curTouchY-this.touchY)>300){
+            this.setState({getting:true})
         }
         document.body.style.marginTop=(curTouchY-this.touchY)*0.3+'px';
     }
@@ -73,6 +74,7 @@ export default class extends React.Component{
         if(scrollTop>0){
             return
         }
+        this.setState({hasMore:true})
         this.getIndex();
         this.getSeach();
     }
