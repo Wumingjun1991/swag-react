@@ -17,6 +17,10 @@ import Footer from './component/footer/index'
 import Personal from './container/Personal/index'//wmj
 import OrderList from './container/orderList'// wyk
 import ChatInfo from './component/chat_info/index'// wmj
+import UserHelp from './container/Personal/UserHelp'
+import UserPurse from './container/Personal/UserPurse'
+import UserOrder from './container/Personal/UserOrder'
+import UserInfo from './container/Personal/UserInfo'
 
 // redux
 import { createStore } from 'redux';
@@ -43,6 +47,11 @@ ReactDOM.render(
                     <Route path='/orderList' component={jump(OrderList)()}/>
                     {/*聊天信息*/}
                     <Route path='/chatInfo' component={jump(ChatInfo)()}/>
+                    <Route path='/userInfo' component={jump(UserInfo)()}/>
+                    <Route path='/userOrder' component={jump(UserOrder)()}/>
+                    <Route path='/userPurse' component={jump(UserPurse)()}/>
+                    <Route path='/userHelp' component={jump(UserHelp)()}/>
+
                 </Switch>
                 <Footer/>
             </div>

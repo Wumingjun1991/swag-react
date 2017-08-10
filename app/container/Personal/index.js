@@ -4,6 +4,7 @@
 import React from 'react'
 import { List,Card,Icon,Button,NavBar } from 'antd-mobile';
 import './index.less'
+import {Link} from 'react-router-dom'
 import NavbarTop from '../../component/navbar_top/index'
 import ip from '../../util/ipLocation';
 import {ajax} from '../../util/index'
@@ -65,27 +66,36 @@ class Personal extends React.Component {
                     />
                 </Card>
             </List>
-            <List className="user-info">
-                <Item thumb={<Icon type={require('../../public/icon/user-info.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
-                    个人信息
-                </Item>
-            </List>
-            <List className="user-order">
-                <Item thumb={<Icon type={require('../../public/icon/user-order.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
-                    订单信息
-                </Item>
+                <Link to="/userInfo">
+                    <List className="user-info">
+                        <Item thumb={<Icon type={require('../../public/icon/user-info.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                            个人信息
+                        </Item>
+                    </List>
+                </Link>
+                <Link to='userOrder'>
+                    <List className="user-order">
+                        <Item thumb={<Icon type={require('../../public/icon/user-order.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                            订单信息
+                        </Item>
 
-            </List>
-            <List className="user-purse">
-                <Item thumb={<Icon type={require('../../public/icon/user-purse.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
-                    我的钱包
-                </Item>
-            </List>
-            <List className="user-help">
-                <Item thumb={<Icon type={require('../../public/icon/user-help.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
-                    帮助中心
-                </Item>
-            </List>
+                    </List>
+                </Link>
+                <Link to="userPurse">
+                    <List className="user-purse">
+                        <Item thumb={<Icon type={require('../../public/icon/user-purse.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                            我的钱包
+                        </Item>
+                    </List>
+                </Link>
+                <Link to='userHelp'>
+                    <List className="user-help">
+                        <Item thumb={<Icon type={require('../../public/icon/user-help.svg')}/>} multipleLine extra={<Icon type={require('../../public/icon/arrow-right.svg')}/>}>
+                            帮助中心
+                        </Item>
+                    </List>
+                </Link>
+
             <List className="log-out">
                 <Button onClick={
                     ()=>{

@@ -42,7 +42,6 @@ export default class ChatInfo extends Component {
             },1500)
         });
     }
-
     render() {
         return (
             <div className="chat-info">
