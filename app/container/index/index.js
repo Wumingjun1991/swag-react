@@ -8,7 +8,8 @@ import GoodsDetail from '../GoodsDetail/GoodsDetail';
 import jumpcomponent from '../../component/jumpcomponent';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import indexActions from '../../redux/actions/indexActions'
+import indexActions from '../../redux/actions/indexActions';
+import {Link} from 'react-router-dom';
 let jumpWaitFlag = jumpcomponent(GoodsDetail);
 class Index extends React.Component{
     constructor(){
@@ -168,7 +169,7 @@ class Index extends React.Component{
                     data={this.props.data.listImgs}
                       columnNum={4}
                       renderItem={dataItem => (
-                          <div style={{ padding: '0.25rem',border:'2px solid #ccc'  }}>
+                          <div style={{ padding: '0.25rem',border:'1px solid #ccc'  }}>
                               <img src={dataItem.src} style={{ width: '0.8rem', height: '0.8rem' }} alt="icon" />
                               <div style={{ color: '#888', fontSize: '0.28rem', marginTop: '0.14rem' }}>
                                   <span>{dataItem.name}</span>
@@ -185,15 +186,17 @@ class Index extends React.Component{
                       columnNum={2}
                       hasLine={true}
                       renderItem={dataItem => (
-                          <div style={{ padding: '0.15rem', border:'2px solid #ccc' }}>
-                              <img src={dataItem.src} style={{ width: '2.5rem', height: '2.5rem' }} alt="icon" />
-                              <div style={{ color: '#000', fontSize: '0.3rem', }}>
-                                  <span>{dataItem.name}</span>
-                                  <div style={{ padding:'0.1rem 0.5rem',textAlign:'left',height:'0.5rem'}}>
-                                      <span style={{ fontSize: '0.3rem' }}>￥{dataItem.rmb}</span><span style={{ lineHeight:'0.3rem',fontSize: '0.23rem', float:'right',color:'red' }}>热度:{dataItem.hot}</span>
+                          <Link to={`/detail/123`}>
+                              <div style={{ padding: '0.15rem', border:'2px solid #ccc' }}>
+                                  <img src={dataItem.src} style={{ width: '2.5rem', height: '2.5rem' }} alt="icon" />
+                                  <div style={{ color: '#000', fontSize: '0.3rem', }}>
+                                      <span>{dataItem.name}</span>
+                                      <div style={{ padding:'0.1rem 0.5rem',textAlign:'left',height:'0.5rem'}}>
+                                          <span style={{ fontSize: '0.3rem' }}>￥{dataItem.rmb}</span><span style={{ lineHeight:'0.3rem',fontSize: '0.23rem', float:'right',color:'red' }}>热度:{dataItem.hot}</span>
+                                      </div>
                                   </div>
                               </div>
-                          </div>
+                          </Link>
                       )}
                 />
                 {!this.state.hasMore?<div style={{width:'100%',height:'1rem',lineHeight:'1rem',textAlign:'center',paddingBottom:'1rem'}}>没有更多</div>:null}
