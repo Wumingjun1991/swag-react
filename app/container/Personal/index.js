@@ -41,6 +41,7 @@ class Personal extends React.Component {
 
     }
     render() {
+        console.log(this.props.history, "hahha");
         let { avatar, name } = this.props.data;
         return (<div>
             <NavbarTop>

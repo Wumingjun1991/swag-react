@@ -19,7 +19,7 @@ export default class BuyCar extends Component {
             totalPrice: 0
         }
     };
-    componentDidMount () {
+    componentWillMount () {
         ajax({
             url: `http://${ip}:8333/buycar`,
             method: "post",
@@ -155,5 +155,3 @@ export default class BuyCar extends Component {
 }
 
 import "./buyCar.less";
-
-
