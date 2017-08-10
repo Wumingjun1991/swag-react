@@ -87,7 +87,12 @@ class Personal extends React.Component {
                 </Item>
             </List>
             <List className="log-out">
-                <Button className="btn" type="primary">退出登录</Button>
+                <Button onClick={
+                    ()=>{
+                        localStorage.removeItem('LOGINSTATE');
+                        this.props.history.push('/signin');
+                    }
+                } className="btn" type="primary">退出登录</Button>
             </List>
         </div>
         );

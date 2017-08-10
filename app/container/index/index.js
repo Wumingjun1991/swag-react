@@ -157,7 +157,7 @@ class Index extends React.Component{
                     swipeSpeed={35}
                 >
                     {this.props.data.sliderImgs.map((item,index) => (
-                        <a key={index}>
+                        <a key= {index}>
                             <img style={{width:"100%",height:"4rem"}} src={item} alt="icon"/>
                         </a>
                     ))}
