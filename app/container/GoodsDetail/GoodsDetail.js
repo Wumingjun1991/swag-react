@@ -139,7 +139,7 @@ export default class GoodsDetail extends Component {
                             name: '金属探测仪',
                             content: '采用t7302389719731928'
                         });
-                        this.props.history.push('/buyCar');
+                        this.context.router.history.push('/buyCar');
                     }} className="car">加入购物车</span>
                     <span onClick={()=>{this.context.router.history.push('/buyCar')}}  className="buy">立即购买</span>
                 </Flex>
