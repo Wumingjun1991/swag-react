@@ -90,8 +90,6 @@ class BuyCar extends Component {
         })
     };
 
-    add
-
 
 
     render () {
