@@ -30,6 +30,7 @@ export default class extends Component{
 
 
     componentDidMount(){
+        console.log(this.props);
         ajax({
             url:`http://${ip}:8333/messages`,
             method:'POST',
@@ -90,12 +91,9 @@ export default class extends Component{
                                     {item.sender}
                                     <span>{item.time}</span>
                                     <Brief>{item.content}</Brief>
-
                                 </Item>
                             </Link>
-
                         ))
-
                     }
                 </List>
 
